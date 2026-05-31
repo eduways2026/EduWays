@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduWays — Find Your Best Education Path</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      /* EduWays Varsity/Campus Palette */
+      --navy:       #1B2A4A;
+      --navy-mid:   #243660;
+      --navy-light: #EEF1F8;
+      --gold:       #C8922A;
+      --gold-light: #FDF3E3;
+      --gold-mid:   #E8A83A;
+      --sage:       #4A7C6F;
+      --sage-light: #EAF2F0;
+      --white:      #FFFFFF;
+      --off-white:  #F8F9FB;
+      --gray-100:   #F1F3F7;
+      --gray-200:   #E2E6ED;
+      --gray-300:   #C8CFD9;
+      --gray-500:   #7A8799;
+      --gray-700:   #445066;
+      --gray-900:   #1B2A4A;
+      --charcoal:   #2D3748;
+      --red:        #C0392B;
+      --red-light:  #FDECEA;
+      --shadow-sm:  0 1px 4px rgba(27,42,74,.07);
+      --shadow:     0 4px 16px rgba(27,42,74,.10);
+      --shadow-lg:  0 8px 32px rgba(27,42,74,.13);
+      --radius:     14px;
+      --radius-sm:  8px;
+      --radius-lg:  20px;
+    }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Inter',system-ui,sans-serif; color:var(--charcoal); background:var(--white); line-height:1.65; -webkit-font-smoothing:antialiased; }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:300;
+      background:rgba(255,255,255,.97); backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--gray-200);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 3rem; height:64px;
+      box-shadow:var(--shadow-sm);
+    }
+    .logo { display:flex; align-items:center; gap:.6rem; cursor:pointer; text-decoration:none; }
+    .logo-mark {
+      width:36px; height:36px; background:var(--navy); border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .logo-mark svg { width:20px; height:20px; fill:none; stroke:#fff; stroke-width:2.2; }
+    .logo-text { font-family:'Plus Jakarta Sans',sans-serif; font-size:1.25rem; font-weight:800; color:var(--navy); letter-spacing:-.02em; }
+    .logo-text span { color:var(--gold); }
+    .nav-links { display:flex; gap:2rem; }
+    .nav-links a { color:var(--gray-700); text-decoration:none; font-size:.9rem; font-weight:500; transition:color .2s; }
+    .nav-links a:hover { color:var(--navy); }
+    .nav-actions { display:flex; gap:.75rem; align-items:center; }
+    .btn-ghost { padding:.5rem 1.1rem; background:transparent; color:var(--gray-700); border:1.5px solid var(--gray-300); border-radius:var(--radius-sm); font-size:.875rem; font-weight:600; cursor:pointer; text-decoration:none; transition:all .2s; font-family:'Inter',sans-serif; }
+    .btn-ghost:hover { border-color:var(--navy); color:var(--navy); }
+    .btn-navy { padding:.5rem 1.25rem; background:var(--navy); color:#fff; border:none; border-radius:var(--radius-sm); font-size:.875rem; font-weight:700; cursor:pointer; text-decoration:none; transition:all .2s; font-family:'Inter',sans-serif; display:inline-block; }
+    .btn-navy:hover { background:var(--navy-mid); transform:translateY(-1px); box-shadow:0 4px 12px rgba(27,42,74,.25); }
+
+    /* ── PAGE SYSTEM ── */
+    .page { display:none; }
+    .page.active { display:block; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:100vh; display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      padding:7rem 2rem 5rem; text-align:center;
+      background:linear-gradient(160deg, var(--off-white) 0%, #fff 60%, var(--navy-light) 100%);
+      position:relative; overflow:hidden;
+    }
+    .hero::before {
+      content:''; position:absolute; top:-120px; right:-120px;
+      width:500px; height:500px; border-radius:50%;
+      background:radial-gradient(circle, rgba(200,146,42,.08) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero::after {
+      content:''; position:absolute; bottom:-80px; left:-80px;
+      width:400px; height:400px; border-radius:50%;
+      background:radial-gradient(circle, rgba(27,42,74,.06) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.4rem 1.1rem; background:var(--gold-light);
+      border:1px solid rgba(200,146,42,.3); border-radius:99px;
+      color:var(--gold); font-size:.78rem; font-weight:700;
+      margin-bottom:1.75rem; letter-spacing:.02em;
+      animation:fadeUp .5s ease both;
+    }
+    .hero h1 {
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:clamp(2.4rem,5.5vw,4.2rem); font-weight:800;
+      line-height:1.08; letter-spacing:-.035em;
+      color:var(--navy); max-width:800px; margin-bottom:1.25rem;
+      animation:fadeUp .55s .06s ease both;
+    }
+    .hero h1 em { color:var(--gold); font-style:normal; }
+    .hero-sub {
+      color:var(--gray-500); font-size:1.1rem; max-width:520px;
+      margin-bottom:2.5rem; line-height:1.7;
+      animation:fadeUp .6s .12s ease both;
+    }
+
+    /* ── CAREER EXPLORER TOOL ── */
+    .hero-tool {
+      background:#fff; border:1px solid var(--gray-200);
+      border-radius:var(--radius-lg); padding:2rem;
+      max-width:720px; width:100%; margin-bottom:1.75rem;
+      box-shadow:var(--shadow-lg); text-align:left;
+      animation:fadeUp .65s .18s ease both;
+    }
+    .tool-label {
+      font-size:.75rem; font-weight:700; color:var(--gray-500);
+      text-transform:uppercase; letter-spacing:.1em; margin-bottom:.85rem;
+    }
+    .career-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(155px,1fr)); gap:.5rem; margin-bottom:1.25rem; }
+    .career-btn {
+      padding:.65rem .85rem; background:var(--off-white);
+      border:1.5px solid var(--gray-200); border-radius:var(--radius-sm);
+      font-size:.82rem; font-weight:500; color:var(--gray-700);
+      cursor:pointer; transition:all .18s; text-align:left;
+      font-family:'Inter',sans-serif;
+    }
+    .career-btn:hover { background:var(--navy-light); border-color:var(--navy); color:var(--navy); }
+    .career-btn.active { background:var(--navy); border-color:var(--navy); color:#fff; font-weight:600; box-shadow:0 2px 8px rgba(27,42,74,.2); }
+
+    /* Path preview */
+    .path-preview { display:none; border-top:1px solid var(--gray-200); padding-top:1.5rem; margin-top:.25rem; }
+    .path-preview.show { display:block; }
+    .preview-label { font-size:.75rem; font-weight:700; color:var(--gray-500); text-transform:uppercase; letter-spacing:.08em; margin-bottom:1rem; }
+    .preview-label strong { color:var(--navy); font-size:.82rem; }
+    .path-cards-hero { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.85rem; }
+    /* ── HERO PATH CARDS
+       Default  : white background, navy border — identical for ALL 3
+       Active   : gold background tint, gold border, gold accent — identical for ALL 3
+       No card gets any special permanent style; only .active class drives the highlight ── */
+    .phcard {
+      border:1.5px solid var(--navy); border-radius:var(--radius);
+      padding:1.1rem; background:#fff; cursor:pointer; transition:all .2s;
+      box-shadow:var(--shadow-sm);
+    }
+    .phcard:hover { box-shadow:var(--shadow); transform:translateY(-2px); }
+    /* Active = gold highlight — same rule applies to Path 1, 2, and 3 equally */
+    .phcard.active {
+      border-color:var(--gold); background:var(--gold-light);
+      box-shadow:0 4px 16px rgba(200,146,42,.22); transform:translateY(-2px);
+    }
+    .phcard.active .path-tag { color:var(--gold); }
+    .phcard.active .path-name { color:var(--navy); }
+    .phcard.active .stat-label { color:var(--gray-500); }
+    .phcard.active .stat-val { color:var(--gold); }
+    .path-tag { font-size:.65rem; font-weight:700; color:var(--gray-500); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4rem; }
+    .path-name { font-size:.85rem; font-weight:700; color:var(--navy); line-height:1.35; margin-bottom:.75rem; }
+    .path-stats { display:flex; flex-direction:column; gap:.35rem; }
+    .stat-row { display:flex; justify-content:space-between; align-items:center; }
+    .stat-label { font-size:.72rem; color:var(--gray-500); }
+    .stat-val { font-size:.78rem; font-weight:700; color:var(--navy); }
+    /* muted = default unselected state — same on all 3 cards */
+    .stat-val.muted { color:var(--gray-500); }
+    /* active card stat values all turn gold */
+    .phcard.active .stat-val { color:var(--gold); }
+
+    /* Path detail */
+    .hero-path-detail {
+      display:none; margin-top:.85rem; padding:1rem 1.25rem;
+      background:var(--navy-light); border:1px solid var(--gray-200);
+      border-radius:var(--radius-sm);
+    }
+    .hero-path-detail.show { display:block; }
+    .detail-title { font-size:.78rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.35rem; }
+    .detail-text { font-size:.83rem; color:var(--gray-700); line-height:1.65; }
+
+    /* Hero CTA */
+    .preview-cta { margin-top:1.25rem; text-align:center; }
+    .btn-gold {
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.8rem 2rem; background:var(--gold); color:#fff;
+      border:none; border-radius:var(--radius-sm); font-weight:700;
+      font-size:.95rem; cursor:pointer; text-decoration:none;
+      transition:all .2s; font-family:'Inter',sans-serif;
+      box-shadow:0 4px 14px rgba(200,146,42,.3);
+    }
+    .btn-gold:hover { background:var(--gold-mid); transform:translateY(-2px); box-shadow:0 6px 20px rgba(200,146,42,.4); }
+    .hero-note { color:var(--gray-500); font-size:.82rem; animation:fadeUp .7s .24s ease both; }
+    .hero-note a { color:var(--gold); text-decoration:none; font-weight:600; cursor:pointer; }
+    .hero-note a:hover { text-decoration:underline; }
+
+    /* ── TRUST BAR ── */
+    .trust-bar { padding:1.5rem 2rem; background:var(--navy); }
+    .trust-inner { max-width:960px; margin:0 auto; display:flex; justify-content:center; align-items:center; gap:3rem; flex-wrap:wrap; }
+    .trust-item { display:flex; align-items:center; gap:.5rem; color:rgba(255,255,255,.75); font-size:.85rem; font-weight:500; }
+    .trust-item svg { width:16px; height:16px; stroke:var(--gold); fill:none; stroke-width:2; flex-shrink:0; }
+    .trust-num { font-weight:800; color:#fff; }
+
+    /* ── SECTIONS ── */
+    .section { padding:5.5rem 2rem; }
+    .section.alt { background:var(--off-white); }
+    .section-inner { max-width:1080px; margin:0 auto; }
+    .section-tag { display:inline-block; background:var(--gold-light); color:var(--gold); font-size:.7rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; padding:.3rem .9rem; border-radius:99px; margin-bottom:.85rem; border:1px solid rgba(200,146,42,.2); }
+    .section-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(1.75rem,3.5vw,2.5rem); font-weight:800; line-height:1.12; letter-spacing:-.025em; color:var(--navy); margin-bottom:.85rem; }
+    .section-sub { color:var(--gray-500); font-size:1rem; max-width:520px; line-height:1.7; }
+
+    /* ── STEPS ── */
+    .steps-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.25rem; margin-top:2.5rem; }
+    .step {
+      background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius);
+      padding:1.75rem; transition:all .25s; position:relative;
+      box-shadow:var(--shadow-sm);
+    }
+    .step:hover { border-color:var(--navy); box-shadow:var(--shadow); transform:translateY(-3px); }
+    .step-num {
+      width:34px; height:34px; background:var(--navy-light); border-radius:var(--radius-sm);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.78rem; font-weight:800; color:var(--navy); margin-bottom:1rem;
+    }
+    .step h3 { font-size:.95rem; font-weight:700; color:var(--navy); margin-bottom:.4rem; }
+    .step p { color:var(--gray-500); font-size:.85rem; line-height:1.65; }
+
+    /* ── DASHBOARD PREVIEW ── */
+    .dashboard-wrap {
+      background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius-lg);
+      overflow:hidden; box-shadow:var(--shadow-lg); margin-top:2.5rem;
+      display:grid; grid-template-columns:260px 1fr;
+    }
+
+    /* Sidebar */
+    .dsidebar { background:var(--off-white); border-right:1px solid var(--gray-200); padding:1.5rem; }
+    .ds-section-label { font-size:.65rem; font-weight:800; color:var(--gray-500); text-transform:uppercase; letter-spacing:.12em; margin-bottom:.75rem; }
+    .profile-card { background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius-sm); padding:1rem; margin-bottom:1.25rem; box-shadow:var(--shadow-sm); }
+    .profile-name { font-size:.9rem; font-weight:700; color:var(--navy); margin-bottom:.35rem; }
+    .profile-detail { font-size:.76rem; color:var(--gray-500); line-height:1.85; }
+    .editable { color:var(--navy); font-weight:600; cursor:pointer; border-bottom:1px dashed var(--gray-300); padding:0 1px; border-radius:2px; transition:background .15s; position:relative; }
+    .editable:hover { background:var(--navy-light); }
+    .field-dropdown { position:absolute; background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius-sm); box-shadow:var(--shadow-lg); z-index:400; min-width:170px; padding:.4rem 0; display:none; left:0; top:100%; margin-top:2px; }
+    .field-dropdown.open { display:block; }
+    .field-opt { padding:.5rem 1rem; font-size:.8rem; cursor:pointer; color:var(--gray-700); transition:background .15s; }
+    .field-opt:hover,.field-opt.sel { background:var(--navy-light); color:var(--navy); font-weight:600; }
+    .editable-wrap { display:inline; position:relative; }
+
+    /* Sliders */
+    .slider-group { margin-bottom:1rem; }
+    .slider-row { display:flex; justify-content:space-between; margin-bottom:.3rem; }
+    .slider-name { font-size:.76rem; color:var(--charcoal); font-weight:500; }
+    .slider-pct { font-size:.76rem; font-weight:700; color:var(--navy); }
+    .slider-track { height:5px; background:var(--gray-200); border-radius:3px; overflow:hidden; }
+    .slider-fill { height:100%; background:var(--navy); border-radius:3px; transition:width .3s; }
+    .range-input { width:100%; accent-color:var(--navy); cursor:pointer; margin-top:.3rem; }
+
+    /* Filter pills — radio style */
+    .filter-pills { display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.5rem; }
+    .fpill {
+      padding:.3rem .85rem; border:1.5px solid var(--gray-300);
+      border-radius:99px; font-size:.75rem; font-weight:600;
+      color:var(--gray-500); cursor:pointer; transition:all .18s;
+      background:#fff; user-select:none; font-family:'Inter',sans-serif;
+    }
+    .fpill:hover { border-color:var(--navy); color:var(--navy); }
+    .fpill.on { background:var(--navy); border-color:var(--navy); color:#fff; box-shadow:0 2px 6px rgba(27,42,74,.2); }
+
+    /* Main panel */
+    .dmain { padding:1.5rem; }
+    .panel-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; }
+    .panel-title { font-size:.8rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:.06em; }
+    .panel-hint { font-size:.72rem; color:var(--gray-500); }
+    .pcards-row { display:grid; grid-template-columns:repeat(3,1fr); gap:.85rem; }
+
+    /* ── DASHBOARD PATH CARDS
+       Default  : white background, navy border — identical for ALL 3
+       Selected : gold background tint, gold border — identical for ALL 3
+       .recommended class no longer forces any permanent background or border color ── */
+    .pcard {
+      border:1.5px solid var(--navy); border-radius:var(--radius);
+      padding:1.1rem; background:#fff; cursor:pointer; transition:all .2s;
+      box-shadow:var(--shadow-sm);
+    }
+    .pcard:hover { box-shadow:var(--shadow); transform:translateY(-2px); }
+    /* Selected = gold highlight — same rule for Path 1, 2, and 3 */
+    .pcard.selected {
+      border-color:var(--gold); background:var(--gold-light);
+      box-shadow:0 6px 20px rgba(200,146,42,.22); transform:translateY(-2px);
+    }
+    .pcard-label { font-size:.62rem; font-weight:800; color:var(--gray-500); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.25rem; }
+    .pcard.selected .pcard-label { color:var(--gold); }
+    .pcard-name { font-size:.88rem; font-weight:700; color:var(--navy); line-height:1.3; margin-bottom:.2rem; }
+    .pcard-sub { font-size:.71rem; color:var(--gray-500); margin-bottom:.85rem; }
+    .select-badge { display:none; font-size:.7rem; font-weight:700; color:var(--gold); text-align:center; margin-bottom:.5rem; background:rgba(200,146,42,.12); border-radius:6px; padding:.25rem; border:1px solid rgba(200,146,42,.25); }
+    .pcard.selected .select-badge { display:block; }
+    .metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:.4rem; margin-bottom:.75rem; }
+    .mbox { border-radius:8px; padding:.5rem .6rem; text-align:center; }
+    .mbox.g { background:var(--sage-light); }
+    .mbox.a { background:var(--gold-light); }
+    .mbox.b { background:var(--navy-light); }
+    /* Selected card: metric boxes get a gold tint — text stays dark and readable */
+    .pcard.selected .mbox.g,
+    .pcard.selected .mbox.a,
+    .pcard.selected .mbox.b { background:rgba(200,146,42,.15); }
+    .mbox .mv { font-size:.9rem; font-weight:800; color:var(--sage); }
+    .mbox.a .mv { color:var(--gold); }
+    .mbox.b .mv { color:var(--navy); }
+    .pcard.selected .mbox .mv { color:var(--gold); }
+    .mbox .ml { font-size:.58rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--gray-500); }
+    .pcard.selected .mbox .ml { color:var(--gray-700); }
+    .tl { display:flex; align-items:center; gap:3px; margin-bottom:.75rem; }
+    .tldot { width:16px; height:16px; border-radius:50%; border:2px solid var(--navy); background:#fff; flex-shrink:0; }
+    .tldot.f { background:var(--navy); }
+    .pcard.selected .tldot { border-color:var(--gold); background:rgba(200,146,42,.15); }
+    .pcard.selected .tldot.f { background:var(--gold); border-color:var(--gold); }
+    .tlline { flex:1; height:2px; background:var(--gray-200); }
+    .tlline.d { background:var(--navy); }
+    .pcard.selected .tlline { background:rgba(200,146,42,.25); }
+    .pcard.selected .tlline.d { background:var(--gold); }
+    .view-btn {
+      width:100%; padding:.45rem; border-radius:var(--radius-sm);
+      font-size:.75rem; font-weight:700; cursor:pointer; transition:all .2s;
+      font-family:'Inter',sans-serif; border:1.5px solid;
+    }
+    .view-btn.navy { border-color:var(--navy); color:var(--navy); background:transparent; }
+    .view-btn.navy:hover { background:var(--navy); color:#fff; }
+    /* Selected card: button turns solid gold */
+    .pcard.selected .view-btn.navy,
+    .pcard.selected .view-btn.gray { border-color:var(--gold); background:var(--gold); color:#fff; }
+    .view-btn.gray { border-color:var(--gray-300); color:var(--gray-500); background:transparent; }
+    .view-btn.gray:hover { border-color:var(--navy); color:var(--navy); }
+
+    /* Path detail panel */
+    .path-detail {
+      display:none; margin-top:1rem; padding:1.1rem 1.25rem;
+      background:var(--navy-light); border:1px solid var(--gray-200);
+      border-radius:var(--radius-sm); animation:fadeUp .2s ease both;
+    }
+    .path-detail.show { display:block; }
+    .path-detail h4 { font-size:.82rem; font-weight:800; color:var(--navy); margin-bottom:.4rem; }
+    .path-detail p { font-size:.8rem; color:var(--gray-700); line-height:1.65; }
+    .path-detail ul { font-size:.8rem; color:var(--gray-700); padding-left:1.15rem; margin-top:.4rem; line-height:2.1; }
+    .path-detail .detail-cta { margin-top:.85rem; }
+
+    /* ── FEATURES ── */
+    .features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:1.5rem; margin-top:2.5rem; }
+    .feat { display:flex; gap:1rem; align-items:flex-start; }
+    .feat-icon { width:42px; height:42px; border-radius:var(--radius-sm); background:var(--navy-light); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .feat-icon svg { width:20px; height:20px; stroke:var(--navy); fill:none; stroke-width:2; }
+    .feat h3 { font-size:.95rem; font-weight:700; color:var(--navy); margin-bottom:.35rem; }
+    .feat p { font-size:.85rem; color:var(--gray-500); line-height:1.65; }
+
+    /* ── STATS BAND ── */
+    .stats-band { background:var(--navy); padding:4rem 2rem; }
+    .stats-inner { max-width:960px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; text-align:center; }
+    .stat-big .val { font-family:'Plus Jakarta Sans',sans-serif; font-size:2.5rem; font-weight:800; color:var(--gold); display:block; line-height:1; }
+    .stat-big .desc { font-size:.85rem; color:rgba(255,255,255,.75); margin-top:.5rem; }
+
+    /* ── CTA ── */
+    .cta-section { padding:5.5rem 2rem; text-align:center; background:var(--off-white); }
+    .cta-box { max-width:640px; margin:0 auto; background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius-lg); padding:3.5rem 2.5rem; box-shadow:var(--shadow-lg); }
+    .cta-box h2 { font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(1.75rem,3.5vw,2.4rem); font-weight:800; color:var(--navy); margin-bottom:.85rem; }
+    .cta-box p { color:var(--gray-500); margin-bottom:2rem; font-size:1rem; line-height:1.7; }
+    .cta-buttons { display:flex; gap:.85rem; justify-content:center; flex-wrap:wrap; }
+    .btn-big { padding:.9rem 2.25rem; border-radius:var(--radius-sm); font-size:1rem; font-weight:700; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:.5rem; transition:all .2s; font-family:'Inter',sans-serif; border:none; }
+    .btn-big.gold { background:var(--gold); color:#fff; box-shadow:0 4px 14px rgba(200,146,42,.3); }
+    .btn-big.gold:hover { background:var(--gold-mid); transform:translateY(-2px); box-shadow:0 6px 20px rgba(200,146,42,.4); }
+    .btn-big.outline { background:#fff; color:var(--gray-700); border:1.5px solid var(--gray-300); }
+    .btn-big.outline:hover { border-color:var(--navy); color:var(--navy); }
+    .cta-note { margin-top:1rem; font-size:.82rem; color:var(--gray-500); }
+
+    /* ── FOOTER ── */
+    footer { padding:2rem 3rem; border-top:1px solid var(--gray-200); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; background:#fff; }
+    .footer-logo { font-family:'Plus Jakarta Sans',sans-serif; font-size:1.1rem; font-weight:800; color:var(--navy); }
+    .footer-logo span { color:var(--gold); }
+    .footer-links { display:flex; gap:1.5rem; }
+    .footer-links a { color:var(--gray-500); text-decoration:none; font-size:.82rem; transition:color .2s; }
+    .footer-links a:hover { color:var(--navy); }
+    footer p { color:var(--gray-500); font-size:.8rem; }
+
+    /* ── SIGN UP PAGE ── */
+    #page-signup { min-height:100vh; background:var(--off-white); padding:7rem 2rem 4rem; display:none; }
+    #page-signup.active { display:block; }
+    .signup-wrap { max-width:580px; margin:0 auto; }
+    .signup-back { display:inline-flex; align-items:center; gap:.4rem; color:var(--gray-500); font-size:.85rem; font-weight:600; cursor:pointer; margin-bottom:2rem; border:none; background:none; transition:color .2s; font-family:'Inter',sans-serif; }
+    .signup-back:hover { color:var(--navy); }
+    .signup-card { background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius-lg); padding:2.75rem; box-shadow:var(--shadow-lg); }
+    .free-badge { display:inline-flex; align-items:center; gap:.4rem; padding:.35rem .9rem; background:var(--sage-light); border:1px solid rgba(74,124,111,.25); border-radius:99px; color:var(--sage); font-size:.75rem; font-weight:700; margin-bottom:1.25rem; }
+    .signup-card h2 { font-family:'Plus Jakarta Sans',sans-serif; font-size:1.85rem; font-weight:800; color:var(--navy); margin-bottom:.4rem; }
+    .signup-card .sub { color:var(--gray-500); font-size:.95rem; margin-bottom:1.75rem; line-height:1.6; }
+    .step-dots { display:flex; gap:.5rem; margin-bottom:1.75rem; }
+    .sdot { height:4px; border-radius:2px; flex:1; background:var(--gray-200); transition:background .3s; }
+    .sdot.done { background:var(--navy); }
+    .form-step { display:none; }
+    .form-step.active { display:block; }
+    .step-lbl { font-size:.72rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:.1em; margin-bottom:1.25rem; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .fg { display:flex; flex-direction:column; gap:.4rem; }
+    .fg.full { grid-column:1/-1; }
+    .fg label { font-size:.82rem; font-weight:600; color:var(--charcoal); }
+    .fg input,.fg select {
+      padding:.7rem 1rem; border:1.5px solid var(--gray-200); border-radius:var(--radius-sm);
+      font-size:.9rem; font-family:'Inter',sans-serif; color:var(--charcoal);
+      outline:none; transition:border-color .2s; background:#fff;
+    }
+    .fg input:focus,.fg select:focus { border-color:var(--navy); box-shadow:0 0 0 3px rgba(27,42,74,.08); }
+    .fg input::placeholder { color:var(--gray-300); }
+    .btn-submit {
+      width:100%; padding:.9rem; background:var(--navy); color:#fff; border:none;
+      border-radius:var(--radius-sm); font-size:1rem; font-weight:700; cursor:pointer;
+      transition:all .2s; margin-top:1.25rem; font-family:'Inter',sans-serif;
+    }
+    .btn-submit:hover { background:var(--navy-mid); transform:translateY(-1px); box-shadow:0 4px 12px rgba(27,42,74,.25); }
+    .btn-back-step {
+      width:100%; padding:.75rem; background:transparent; color:var(--gray-500);
+      border:1.5px solid var(--gray-200); border-radius:var(--radius-sm);
+      font-size:.9rem; font-weight:600; cursor:pointer; transition:all .2s;
+      margin-top:.65rem; font-family:'Inter',sans-serif;
+    }
+    .btn-back-step:hover { border-color:var(--gray-400); color:var(--charcoal); }
+    .summary-box { background:var(--off-white); border:1px solid var(--gray-200); border-radius:var(--radius-sm); padding:1.25rem; margin-bottom:1.25rem; }
+    .summary-box .slabel { font-size:.7rem; font-weight:800; color:var(--gray-500); text-transform:uppercase; letter-spacing:.1em; margin-bottom:.75rem; }
+    .perks-box { background:var(--navy-light); border:1px solid var(--gray-200); border-radius:var(--radius-sm); padding:1.1rem; margin-bottom:1.25rem; }
+    .perks-box .plabel { font-size:.8rem; font-weight:700; color:var(--navy); margin-bottom:.5rem; }
+    .perks-box ul { font-size:.8rem; color:var(--navy); padding-left:1.15rem; line-height:2.1; }
+
+    /* Success */
+    .success-card { background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius-lg); padding:2.75rem; box-shadow:var(--shadow-lg); text-align:center; display:none; }
+    .success-icon { width:68px; height:68px; background:var(--sage-light); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1.5rem; }
+    .success-icon svg { width:32px; height:32px; stroke:var(--sage); fill:none; stroke-width:2.5; }
+    .success-card h3 { font-family:'Plus Jakarta Sans',sans-serif; font-size:1.65rem; font-weight:800; color:var(--navy); margin-bottom:.5rem; }
+    .success-card .sc-sub { color:var(--gray-500); font-size:.95rem; margin-bottom:1.5rem; line-height:1.65; }
+    .coming-next { background:var(--navy-light); border:1px solid var(--gray-200); border-radius:var(--radius-sm); padding:1.25rem; margin-bottom:1.5rem; text-align:left; }
+    .coming-next .cnlabel { font-size:.7rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:.1em; margin-bottom:.75rem; }
+    .coming-next ul { font-size:.85rem; color:var(--navy); padding-left:1.15rem; line-height:2.2; }
+
+    /* ── RESIDENCY OPTIONS ── */
+    .res-option {
+      display:flex; gap:.85rem; align-items:flex-start;
+      border:1.5px solid var(--gray-200); border-radius:var(--radius-sm);
+      padding:1rem 1.1rem; cursor:pointer; transition:all .18s; background:#fff;
+    }
+    .res-option:hover { border-color:var(--navy); background:var(--navy-light); }
+    .res-option.selected { border-color:var(--gold); background:var(--gold-light); }
+    .res-radio {
+      width:18px; height:18px; border-radius:50%; border:2px solid var(--gray-300);
+      flex-shrink:0; margin-top:.2rem; transition:all .15s; position:relative;
+    }
+    .res-option.selected .res-radio { border-color:var(--gold); border-width:5px; background:#fff; }
+    .res-title { font-size:.88rem; font-weight:700; color:var(--navy); margin-bottom:.2rem; }
+    .res-option.selected .res-title { color:var(--gold); }
+    .res-desc { font-size:.78rem; color:var(--gray-500); line-height:1.55; margin-bottom:.3rem; }
+    .res-saving { font-size:.75rem; color:var(--sage); font-weight:600; }
+    .res-option.selected .res-saving { color:var(--gold); }
+
+    /* ── LOGIN FORM ── */
+    .login-card { background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius-lg); padding:2.75rem; box-shadow:var(--shadow-lg); display:none; }
+    .login-card.active { display:block; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)} }
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity .55s ease,transform .55s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .career-combo { position:relative; width:100%; }
+    .career-combo-input-wrap {
+      display:flex; align-items:center; gap:.5rem;
+      border:1.5px solid var(--gray-200); border-radius:var(--radius-sm);
+      background:#fff; padding:.55rem .9rem; transition:border-color .2s;
+    }
+    .career-combo-input-wrap:focus-within { border-color:var(--navy); box-shadow:0 0 0 3px rgba(27,42,74,.08); }
+    .career-combo-input-wrap.has-value { border-color:var(--navy); background:var(--navy-light); }
+    .career-search-icon { width:16px; height:16px; stroke:var(--gray-500); flex-shrink:0; }
+    .career-search-input {
+      flex:1; border:none; outline:none; font-size:.9rem;
+      font-family:'Inter',sans-serif; color:var(--charcoal); background:transparent;
+    }
+    .career-search-input::placeholder { color:var(--gray-300); }
+    .career-clear { color:var(--gray-300); cursor:pointer; font-size:.9rem; display:none; transition:color .2s; line-height:1; }
+    .career-clear:hover { color:var(--charcoal); }
+    .career-clear.show { display:inline; }
+    .career-selected-label {
+      font-size:.78rem; font-weight:700; color:var(--navy);
+      background:var(--navy-light); border:1px solid var(--navy);
+      border-radius:4px; padding:.15rem .5rem; margin-right:.25rem; white-space:nowrap;
+    }
+    .career-dropdown-list {
+      display:none; position:absolute; top:calc(100% + 4px); left:0; right:0;
+      background:#fff; border:1.5px solid var(--gray-200); border-radius:var(--radius-sm);
+      box-shadow:var(--shadow-lg); z-index:600; max-height:280px; overflow-y:auto;
+    }
+    .career-dropdown-list.open { display:block; }
+    .career-group-label {
+      padding:.45rem 1rem .2rem; font-size:.65rem; font-weight:800;
+      color:var(--gray-500); text-transform:uppercase; letter-spacing:.1em;
+      border-top:1px solid var(--gray-100); margin-top:.2rem;
+    }
+    .career-group-label:first-child { border-top:none; margin-top:0; }
+    .career-option {
+      padding:.55rem 1rem; font-size:.87rem; color:var(--charcoal);
+      cursor:pointer; transition:background .12s; display:flex; align-items:center; gap:.6rem;
+    }
+    .career-option:hover,.career-option.focused { background:var(--navy-light); color:var(--navy); }
+    .career-option.selected { background:var(--gold-light); color:var(--gold); font-weight:600; }
+    .career-option-soc { font-size:.68rem; color:var(--gray-500); margin-left:auto; flex-shrink:0; font-family:monospace; }
+    .career-no-results { padding:1rem; text-align:center; color:var(--gray-500); font-size:.85rem; }
+    .career-count-label { padding:.35rem 1rem; font-size:.7rem; color:var(--gray-500); border-bottom:1px solid var(--gray-100); }
+
+    @media(max-width:768px){
+      nav{padding:0 1.25rem;}
+      .nav-links{display:none;}
+      .path-cards-hero,.pcards-row,.form-grid{grid-template-columns:1fr;}
+      .dashboard-wrap{grid-template-columns:1fr;}
+      .dsidebar{display:none;}
+      .career-grid{grid-template-columns:repeat(2,1fr);}
+      .hero h1{font-size:2.2rem;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" onclick="showPage('home')">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <span class="logo-text">Edu<span>Ways</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#how-it-works" onclick="showPage('home')">How It Works</a>
+    <a href="#dashboard" onclick="showPage('home')">Preview</a>
+    <a href="#features" onclick="showPage('home')">Features</a>
+  </div>
+  <div class="nav-actions">
+    <a class="btn-ghost" onclick="showPage('signup')">Sign In</a>
+    <a class="btn-navy" onclick="showPage('signup')">Get Started Free →</a>
+  </div>
+</nav>
+
+<!-- ══ HOME PAGE ══════════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero" id="explore">
+    <div class="hero-badge">🎓 Free to explore — no sign-up required</div>
+    <h1>Find the <em>smartest path</em> to your dream career</h1>
+    <p class="hero-sub">Pick your target career below and instantly compare education pathways on cost, time, and ROI — no account needed to explore.</p>
+
+    <div class="hero-tool">
+      <div class="tool-label">👇 Select your target career to see your pathways</div>
+      <div class="career-grid" id="careerGrid">
+        <button class="career-btn" onclick="showPaths(this,'Registered Nurse (RN)','$8,500','4 yrs','A+','$38,000','4 yrs','B+','$25,000','3 yrs','A-','MDC → FIU (2+2 BSN)','Start at Miami Dade College for your ADN prerequisites, then transfer to FIU for the BSN. Lowest total debt, ACEN accredited, and Florida Board approved.','University of Florida BSN','Direct-entry 4-year BSN at UF. Higher cost but strong clinical network and top national ranking.','Western Governors University Online','Self-paced RN-to-BSN, fully online with local clinical placement. Fastest completion time.')">🏥 Registered Nurse</button>
+        <button class="career-btn" onclick="showPaths(this,'Software Engineer','$12,000','4 yrs','A+','$52,000','4 yrs','B','$18,000','3 yrs','A','CC → State University (2+2)','Complete 2 years of CS fundamentals at community college, then transfer into a 4-year CS program. Save $40k+ vs direct enrollment.','Direct 4-Year CS Program','University CS degree with strong internship pipelines and career services.','Online / Bootcamp + Degree','Accelerated online program with job placement support. Fastest path to employment.')">💻 Software Engineer</button>
+        <button class="career-btn" onclick="showPaths(this,'Cybersecurity Analyst','$11,500','4 yrs','A+','$48,000','4 yrs','B+','$22,000','3.5 yrs','A-','CC → University Transfer','Core IT courses at CC, then transfer into a Cybersecurity BS program. Strong ROI with low debt.','Direct 4-Year University','Dedicated Cybersecurity or Information Systems program with networking opportunities.','Online Accelerated Program','WGU or SNHU cybersecurity degrees with built-in certifications included.')">🔒 Cybersecurity Analyst</button>
+        <button class="career-btn" onclick="showPaths(this,'Physical Therapist','$24,000','6 yrs','A','$85,000','6 yrs','B','$60,000','5 yrs','B+','CC Pre-PT → University DPT','Complete pre-PT prerequisites at CC, then enter a DPT program. Most affordable route to licensure.','Direct University BS + DPT','4-year pre-PT bachelor then 3-year DPT. Higher cost, more direct pathway.','Accelerated DPT Programs','Combined BS/DPT programs that reduce total time by one full year.')">🦴 Physical Therapist</button>
+        <button class="career-btn" onclick="showPaths(this,'Accountant (CPA)','$9,500','4 yrs','A+','$42,000','4 yrs','B','$28,000','4 yrs','B+','CC → State University Accounting','2 years at CC then transfer into an Accounting BS. CPA exam prep included at most programs.','Direct 4-Year Accounting BS','University accounting with Big 4 recruiting pipelines at top programs.','Online Accounting Degree','Flexible online accounting degrees. Pair with CPA prep courses for best results.')">📊 Accountant (CPA)</button>
+        <button class="career-btn" onclick="showPaths(this,'Data Scientist','$13,000','4 yrs','A+','$55,000','4 yrs','B','$20,000','3 yrs','A','CC → Statistics/CS Transfer','Math and CS courses at CC, then transfer into a Data Science or Statistics BS program.','Direct 4-Year Data Science BS','University data science with research opportunities and industry partnerships.','Online MS Data Science','Accelerated online MS from Georgia Tech or UT Austin. Best for career changers.')">📈 Data Scientist</button>
+        <button class="career-btn" onclick="showPaths(this,'Dental Hygienist','$7,200','2.5 yrs','A+','$38,000','4 yrs','B','$18,000','2 yrs','A-','Community College AAS Program','2–2.5 year AAS in Dental Hygiene. Fastest and cheapest path to licensure.','University BS Dental Hygiene','4-year BS opens doors to education, public health, and leadership roles.','Hybrid Online + Clinical','Online coursework with local clinical placements. Great for working students.')">🦷 Dental Hygienist</button>
+        <button class="career-btn" onclick="showPaths(this,'Teacher (K-12)','$8,800','4 yrs','A','$42,000','4 yrs','B+','$30,000','3.5 yrs','B+','CC → Education BS Transfer','Complete gen-ed requirements at CC, transfer into a state university Education program.','Direct 4-Year Education BS','Structured teacher preparation with student teaching placements built in.','Online Education Degree + Cert','Online degree with state certification pathway. Best for career changers.')">📚 Teacher (K-12)</button>
+        <button class="career-btn" onclick="showPaths(this,'Marketing Manager','$10,500','4 yrs','A+','$44,000','4 yrs','B','$22,000','3 yrs','A-','CC → Business/Marketing Transfer','2 years at CC then transfer into a Marketing or Business BS. Strong ROI with low debt.','Direct 4-Year Marketing BS','University marketing with internship pipelines and agency partnerships.','Online Marketing Degree','Flexible online programs. Combine with Google/Meta certifications for strong resume.')">📣 Marketing Manager</button>
+        <button class="career-btn" onclick="showPaths(this,'Social Worker (LCSW)','$9,200','4 yrs','A','$40,000','4 yrs','B+','$32,000','4 yrs','B','CC → Social Work BSW Transfer','CC transfer into a BSW program. Qualifies for supervised hours toward LCSW licensure.','Direct 4-Year BSW Program','Bachelor of Social Work with field placements and practicum hours built in.','Online BSW + MSW Programs','Online pathways to BSW and MSW. Many qualify for PSLF loan forgiveness.')">🤝 Social Worker</button>
+        <button class="career-btn" onclick="showPaths(this,'Electrical Engineer','$14,000','4 yrs','A+','$58,000','4 yrs','B','$24,000','4 yrs','B+','CC Pre-Engineering → ABET Transfer','Calculus and physics at CC, then transfer into an ABET-accredited EE program.','Direct 4-Year EE Program','University EE with co-op programs and strong industry recruiting.','Online EE Degree','ABET-accredited online EE programs — fewer options but growing fast.')">⚡ Electrical Engineer</button>
+        <button class="career-btn" onclick="showPaths(this,'Financial Analyst','$10,000','4 yrs','A+','$46,000','4 yrs','B+','$24,000','3.5 yrs','A-','CC → Finance/Economics Transfer','CC transfer into a Finance or Economics BS. CFA prep resources at most programs.','Direct 4-Year Finance BS','University finance with investment clubs, Bloomberg terminals, and Wall Street recruiting.','Online Finance Degree','Flexible online finance degrees. Good for CFA or CFP certification tracks.')">💹 Financial Analyst</button>
+      </div>
+
+      <div class="path-preview" id="pathPreview">
+        <div class="preview-label">Recommended pathways for <strong id="careerName"></strong></div>
+        <div class="path-cards-hero">
+          <div class="phcard" id="hp1" onclick="selectHeroPath(1)">
+            <div class="path-tag">⭐ Path 1 — Best ROI</div>
+            <div class="path-name" id="hp1name"></div>
+            <div class="path-stats">
+              <div class="stat-row"><span class="stat-label">Total debt</span><span class="stat-val muted" id="p1debt"></span></div>
+              <div class="stat-row"><span class="stat-label">Graduation</span><span class="stat-val muted" id="p1grad"></span></div>
+              <div class="stat-row"><span class="stat-label">Career ROI</span><span class="stat-val muted" id="p1roi"></span></div>
+            </div>
+          </div>
+          <div class="phcard" id="hp2" onclick="selectHeroPath(2)">
+            <div class="path-tag">Path 2</div>
+            <div class="path-name" id="hp2name"></div>
+            <div class="path-stats">
+              <div class="stat-row"><span class="stat-label">Total debt</span><span class="stat-val muted" id="p2debt"></span></div>
+              <div class="stat-row"><span class="stat-label">Graduation</span><span class="stat-val muted" id="p2grad"></span></div>
+              <div class="stat-row"><span class="stat-label">Career ROI</span><span class="stat-val muted" id="p2roi"></span></div>
+            </div>
+          </div>
+          <div class="phcard" id="hp3" onclick="selectHeroPath(3)">
+            <div class="path-tag">Path 3</div>
+            <div class="path-name" id="hp3name"></div>
+            <div class="path-stats">
+              <div class="stat-row"><span class="stat-label">Total debt</span><span class="stat-val muted" id="p3debt"></span></div>
+              <div class="stat-row"><span class="stat-label">Graduation</span><span class="stat-val muted" id="p3grad"></span></div>
+              <div class="stat-row"><span class="stat-label">Career ROI</span><span class="stat-val muted" id="p3roi"></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-path-detail" id="heroDetail">
+          <div class="detail-title" id="heroDetailTitle"></div>
+          <div class="detail-text" id="heroDetailText"></div>
+        </div>
+        <div class="preview-cta">
+          <a class="btn-gold" onclick="showPage('signup')">Get my full personalized plan →</a>
+          <p style="font-size:.75rem;color:var(--gray-500);margin-top:.6rem;">Takes 4 minutes · Free · No credit card</p>
+        </div>
+      </div>
+    </div>
+    <p class="hero-note">Already have an account? <a onclick="showPage('signup')">Sign in here</a></p>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-inner">
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span><span class="trust-num">All 50</span> states covered</span></div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Average <span class="trust-num">$42k</span> saved vs. direct 4-yr</span></div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg><span><span class="trust-num">6</span> scoring dimensions</span></div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg><span>No payment walls — <span class="trust-num">100% free</span> to explore</span></div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how-it-works">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-tag">How It Works</div>
+        <h2 class="section-title">From first click to personalized plan</h2>
+        <p class="section-sub">Explore freely first. Create an account only when you're ready to save your results and build your full semester plan.</p>
+      </div>
+      <div class="steps-grid reveal">
+        <div class="step"><div class="step-num">01</div><h3>Pick your career</h3><p>Choose from hundreds of career paths powered by O*NET and BLS data. See real salary, growth, and licensing requirements for any US state.</p></div>
+        <div class="step"><div class="step-num">02</div><h3>Add your schools</h3><p>Search any institution nationwide. EduWays detects CC + University combos and checks formal transfer articulation agreements automatically.</p></div>
+        <div class="step"><div class="step-num">03</div><h3>Set your budget</h3><p>Our smart filter removes pathways that exceed your limit. In-state tuition calculated automatically based on your home state.</p></div>
+        <div class="step"><div class="step-num">04</div><h3>Enter your academics</h3><p>Your GPA unlocks scholarship tiers. Transfer credits show a live savings preview — every earned credit hour is money you won't borrow.</p></div>
+        <div class="step"><div class="step-num">05</div><h3>Get your dashboard</h3><p>Side-by-side pathway comparison across 6 dimensions, with a semester-by-semester credit plan for your top recommended path.</p></div>
+        <div class="step"><div class="step-num">06</div><h3>Save & share</h3><p>Create a free account to save your results, update your profile anytime, and share your plan with advisors or family.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD PREVIEW -->
+  <section class="section alt" id="dashboard">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-tag">Live Dashboard Preview</div>
+        <h2 class="section-title">Everything is interactive — try it</h2>
+        <p class="section-sub">Click pathway cards to select them. Toggle delivery filters. Adjust the sliders. This is exactly what your dashboard looks like.</p>
+      </div>
+      <div class="dashboard-wrap reveal">
+        <!-- SIDEBAR -->
+        <div class="dsidebar">
+          <div class="ds-section-label">Student Profile</div>
+          <div class="profile-card">
+            <div class="profile-name">Alisha M.</div>
+            <div class="profile-detail">
+              📍 <span class="editable-wrap"><span class="editable" id="pfLocation" onclick="toggleDrop('dLocation')">Miami, FL</span>
+              <div class="field-dropdown" id="dLocation">
+                <div class="field-opt sel" onclick="setField('pfLocation','Miami, FL','dLocation')">Miami, FL</div>
+                <div class="field-opt" onclick="setField('pfLocation','Austin, TX','dLocation')">Austin, TX</div>
+                <div class="field-opt" onclick="setField('pfLocation','Los Angeles, CA','dLocation')">Los Angeles, CA</div>
+                <div class="field-opt" onclick="setField('pfLocation','New York, NY','dLocation')">New York, NY</div>
+                <div class="field-opt" onclick="setField('pfLocation','Chicago, IL','dLocation')">Chicago, IL</div>
+                <div class="field-opt" onclick="setField('pfLocation','Houston, TX','dLocation')">Houston, TX</div>
+                <div class="field-opt" onclick="setField('pfLocation','Atlanta, GA','dLocation')">Atlanta, GA</div>
+                <div class="field-opt" onclick="setField('pfLocation','Seattle, WA','dLocation')">Seattle, WA</div>
+              </div></span><br>
+              GPA: <span class="editable-wrap"><span class="editable" id="pfGPA" onclick="toggleDrop('dGPA')">3.6</span>
+              <div class="field-dropdown" id="dGPA">
+                <div class="field-opt" onclick="setField('pfGPA','2.0–2.5','dGPA')">2.0–2.5</div>
+                <div class="field-opt" onclick="setField('pfGPA','2.5–3.0','dGPA')">2.5–3.0</div>
+                <div class="field-opt" onclick="setField('pfGPA','3.0–3.5','dGPA')">3.0–3.5</div>
+                <div class="field-opt sel" onclick="setField('pfGPA','3.6','dGPA')">3.6</div>
+                <div class="field-opt" onclick="setField('pfGPA','3.7–4.0','dGPA')">3.7–4.0</div>
+              </div></span><br>
+              Budget: <span class="editable-wrap"><span class="editable" id="pfBudget" onclick="toggleDrop('dBudget')">$15,000/yr</span>
+              <div class="field-dropdown" id="dBudget">
+                <div class="field-opt" onclick="setField('pfBudget','$5,000/yr','dBudget')">$5,000/yr</div>
+                <div class="field-opt" onclick="setField('pfBudget','$10,000/yr','dBudget')">$10,000/yr</div>
+                <div class="field-opt sel" onclick="setField('pfBudget','$15,000/yr','dBudget')">$15,000/yr</div>
+                <div class="field-opt" onclick="setField('pfBudget','$25,000/yr','dBudget')">$25,000/yr</div>
+                <div class="field-opt" onclick="setField('pfBudget','$40,000/yr','dBudget')">$40,000/yr</div>
+              </div></span><br>
+              Career: <span class="editable-wrap"><span class="editable" id="pfCareer" onclick="toggleDrop('dCareer')">Registered Nurse</span>
+              <div class="field-dropdown" id="dCareer">
+                <div class="field-opt sel" onclick="setField('pfCareer','Registered Nurse','dCareer')">Registered Nurse</div>
+                <div class="field-opt" onclick="setField('pfCareer','Software Engineer','dCareer')">Software Engineer</div>
+                <div class="field-opt" onclick="setField('pfCareer','Data Scientist','dCareer')">Data Scientist</div>
+                <div class="field-opt" onclick="setField('pfCareer','Physical Therapist','dCareer')">Physical Therapist</div>
+                <div class="field-opt" onclick="setField('pfCareer','Financial Analyst','dCareer')">Financial Analyst</div>
+              </div></span>
+            </div>
+          </div>
+
+          <div class="ds-section-label">Weight Preferences</div>
+          <div class="slider-group">
+            <div class="slider-row"><span class="slider-name">Low Debt</span><span class="slider-pct" id="sv1">90%</span></div>
+            <input type="range" class="range-input" min="0" max="100" value="90" oninput="updateSlider(this,'sv1','sb1')">
+            <div class="slider-track"><div class="slider-fill" id="sb1" style="width:90%"></div></div>
+          </div>
+          <div class="slider-group">
+            <div class="slider-row"><span class="slider-name">Fast Graduation</span><span class="slider-pct" id="sv2">60%</span></div>
+            <input type="range" class="range-input" min="0" max="100" value="60" oninput="updateSlider(this,'sv2','sb2')">
+            <div class="slider-track"><div class="slider-fill" id="sb2" style="width:60%"></div></div>
+          </div>
+          <div class="slider-group">
+            <div class="slider-row"><span class="slider-name">Easy Transfer</span><span class="slider-pct" id="sv3">85%</span></div>
+            <input type="range" class="range-input" min="0" max="100" value="85" oninput="updateSlider(this,'sv3','sb3')">
+            <div class="slider-track"><div class="slider-fill" id="sb3" style="width:85%"></div></div>
+          </div>
+          <div class="slider-group">
+            <div class="slider-row"><span class="slider-name">High ROI</span><span class="slider-pct" id="sv4">70%</span></div>
+            <input type="range" class="range-input" min="0" max="100" value="70" oninput="updateSlider(this,'sv4','sb4')">
+            <div class="slider-track"><div class="slider-fill" id="sb4" style="width:70%"></div></div>
+          </div>
+
+          <div class="ds-section-label" style="margin-top:.5rem;">Delivery Method</div>
+          <div class="filter-pills">
+            <span class="fpill on" onclick="selectFilter(this)">In-Person</span>
+            <span class="fpill" onclick="selectFilter(this)">Online</span>
+            <span class="fpill" onclick="selectFilter(this)">Hybrid</span>
+          </div>
+        </div>
+
+        <!-- MAIN PANEL -->
+        <div class="dmain">
+          <div class="panel-hdr">
+            <div class="panel-title">Recommended Pathways</div>
+            <div class="panel-hint">Click a card to select & view details</div>
+          </div>
+          <div class="pcards-row">
+            <!-- CARD 1 -->
+            <div class="pcard" id="dc1" onclick="selectDashPath(1)">
+              <div class="select-badge">✓ Selected</div>
+              <div class="pcard-label">⭐ Path 1 — Recommended</div>
+              <div class="pcard-name">Community College → University (2+2)</div>
+              <div class="pcard-sub">Miami Dade College → Florida International University</div>
+              <div class="metric-grid">
+                <div class="mbox g"><div class="mv">$8,500</div><div class="ml">Total Debt</div></div>
+                <div class="mbox g"><div class="mv">4 Years</div><div class="ml">Graduation</div></div>
+                <div class="mbox g"><div class="mv">YES</div><div class="ml">Licensing</div></div>
+                <div class="mbox g"><div class="mv">A+</div><div class="ml">ROI</div></div>
+              </div>
+              <div class="tl">
+                <div class="tldot f"></div><div class="tlline d"></div>
+                <div class="tldot f"></div><div class="tlline d"></div>
+                <div class="tldot"></div>
+              </div>
+              <button class="view-btn navy">View Full Plan</button>
+            </div>
+            <!-- CARD 2 -->
+            <div class="pcard" id="dc2" onclick="selectDashPath(2)">
+              <div class="select-badge">✓ Selected</div>
+              <div class="pcard-label">Path 2</div>
+              <div class="pcard-name">Direct 4-Year University</div>
+              <div class="pcard-sub">University of Central Florida</div>
+              <div class="metric-grid">
+                <div class="mbox a"><div class="mv">$38,000</div><div class="ml">Total Debt</div></div>
+                <div class="mbox g"><div class="mv">4 Years</div><div class="ml">Graduation</div></div>
+                <div class="mbox g"><div class="mv">YES</div><div class="ml">Licensing</div></div>
+                <div class="mbox a"><div class="mv">B+</div><div class="ml">ROI</div></div>
+              </div>
+              <div class="tl">
+                <div class="tldot f"></div><div class="tlline d"></div>
+                <div class="tldot f"></div><div class="tlline d"></div>
+                <div class="tldot"></div>
+              </div>
+              <button class="view-btn gray">View Full Plan</button>
+            </div>
+            <!-- CARD 3 -->
+            <div class="pcard" id="dc3" onclick="selectDashPath(3)">
+              <div class="select-badge">✓ Selected</div>
+              <div class="pcard-label">Path 3</div>
+              <div class="pcard-name">Online Accelerated BSN</div>
+              <div class="pcard-sub">Western Governors University</div>
+              <div class="metric-grid">
+                <div class="mbox b"><div class="mv">$25,000</div><div class="ml">Total Debt</div></div>
+                <div class="mbox g"><div class="mv">3 Years</div><div class="ml">Graduation</div></div>
+                <div class="mbox g"><div class="mv">YES</div><div class="ml">Licensing</div></div>
+                <div class="mbox b"><div class="mv">A-</div><div class="ml">ROI</div></div>
+              </div>
+              <div class="tl">
+                <div class="tldot f"></div><div class="tlline d"></div>
+                <div class="tldot f"></div><div class="tlline"></div>
+                <div class="tldot"></div>
+              </div>
+              <button class="view-btn gray">View Full Plan</button>
+            </div>
+          </div>
+          <div class="path-detail" id="dashDetail">
+            <h4 id="dashDetailTitle"></h4>
+            <p id="dashDetailText"></p>
+            <ul id="dashDetailList"></ul>
+            <div class="detail-cta">
+              <a class="btn-gold" onclick="showPage('signup')" style="font-size:.82rem;padding:.6rem 1.25rem;">Get my full semester plan →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-tag">Platform Features</div>
+        <h2 class="section-title">Everything you need to make the right call</h2>
+      </div>
+      <div class="features-grid reveal">
+        <div class="feat"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg></div><div><h3>All 50 States</h3><p>In-state vs. out-of-state tuition calculated automatically. Every state's licensing board requirements cross-referenced for your target career.</p></div></div>
+        <div class="feat"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg></div><div><h3>Semester Credit Planner</h3><p>Check off courses as you complete them. Live cumulative debt tracker and milestone markers guide you from Day 1 to graduation.</p></div></div>
+        <div class="feat"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div><h3>Scholarship Matching</h3><p>Pell Grants, state scholarships, and merit aid surfaced automatically based on your GPA, state, and career target. Exact eligibility shown.</p></div></div>
+        <div class="feat"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg></div><div><h3>Licensing Compliance</h3><p>Every pathway validated against your state's licensing board for nursing, teaching, social work, and all regulated professions.</p></div></div>
+        <div class="feat"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div><div><h3>10-Year ROI Projections</h3><p>BLS wage data + debt projections charted side by side across all pathways. See which route puts the most money in your pocket over time.</p></div></div>
+        <div class="feat"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div><h3>O*NET Career Database</h3><p>Powered by 900+ standardized occupations from the US Department of Labor. Real job titles, real skill requirements, real growth data.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-band">
+    <div class="stats-inner">
+      <div class="stat-big"><span class="val">50</span><div class="desc">States with full pathway data</div></div>
+      <div class="stat-big"><span class="val">$42k</span><div class="desc">Average saved vs. direct 4-year path</div></div>
+      <div class="stat-big"><span class="val">900+</span><div class="desc">Careers powered by O*NET & BLS</div></div>
+      <div class="stat-big"><span class="val">100%</span><div class="desc">Free — no payment walls, ever</div></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-box reveal">
+      <h2>Ready to find your highest-ROI education path?</h2>
+      <p>Takes 4 minutes. Explore completely free without an account — create one only when you're ready to save your personalized plan.</p>
+      <div class="cta-buttons">
+        <a class="btn-big gold" onclick="showPage('signup')">Start for free →</a>
+        <a class="btn-big outline" href="#explore">See example pathways</a>
+      </div>
+      <p class="cta-note">No credit card · No payment walls · Free to explore and sign up</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Edu<span>Ways</span></div>
+    <p>© 2026 EduWays · Helping students make smarter education decisions nationwide</p>
+    <div class="footer-links">
+      <a href="#how-it-works">How It Works</a>
+      <a href="#dashboard">Preview</a>
+      <a href="#features">Features</a>
+      <a onclick="showPage('signup')" style="cursor:pointer;">Sign Up Free</a>
+    </div>
+  </footer>
+</div><!-- end home -->
+
+<!-- ══ SIGN UP PAGE ════════════════════════════════════════════════ -->
+<div id="page-signup" class="page">
+  <div class="signup-wrap">
+    <button class="signup-back" onclick="showPage('home')">← Back to home</button>
+
+    <div class="signup-card" id="signupCard">
+      <div class="free-badge">✅ 100% Free — no payment required</div>
+      <h2>Create your free account</h2>
+      <p class="sub">Build your personalized education pathway in minutes. No credit card, no trial period — completely free.</p>
+
+      <div class="step-dots">
+        <div class="sdot done" id="sd1"></div>
+        <div class="sdot" id="sd2"></div>
+        <div class="sdot" id="sd3"></div>
+        <div class="sdot" id="sd4"></div>
+      </div>
+
+      <!-- STEP 1 — ACCOUNT CREATION -->
+      <div class="form-step active" id="fs1">
+        <div class="step-lbl">Step 1 of 4 — Create Your Account</div>
+        <div class="form-grid">
+          <div class="fg"><label>First Name</label><input type="text" id="f_first" placeholder="Maria"/></div>
+          <div class="fg"><label>Last Name</label><input type="text" id="f_last" placeholder="Garcia"/></div>
+          <div class="fg full"><label>Email Address</label><input type="email" id="f_email" placeholder="maria@gmail.com"/></div>
+          <div class="fg full"><label>Username <span style="font-size:.75rem;color:var(--gray-500);font-weight:400;">(letters, numbers, underscores)</span></label><input type="text" id="f_username" placeholder="maria_garcia" maxlength="30"/></div>
+          <div class="fg full">
+            <label>Password <span style="font-size:.75rem;color:var(--gray-500);font-weight:400;">(min 8 chars, 1 uppercase, 1 number)</span></label>
+            <div style="position:relative;">
+              <input type="password" id="f_password" placeholder="Create a secure password" style="width:100%;padding-right:2.5rem;" oninput="checkPwdStrength(this.value)"/>
+              <button type="button" onclick="togglePwd()" style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-500);font-size:.8rem;" id="pwdToggleBtn">Show</button>
+            </div>
+            <div id="pwdStrength" style="margin-top:.4rem;font-size:.75rem;color:var(--gray-500);height:1.1em;"></div>
+          </div>
+        </div>
+        <button class="btn-submit" onclick="nextStep(1)">Continue →</button>
+        <p style="text-align:center;font-size:.8rem;color:var(--gray-500);margin-top:.85rem;">Already have an account? <a onclick="showLoginForm()" style="color:var(--gold);cursor:pointer;font-weight:600;">Sign in</a></p>
+      </div>
+
+      <!-- STEP 2 — LOCATION & RESIDENCY -->
+      <div class="form-step" id="fs2">
+        <div class="step-lbl">Step 2 of 4 — Location & Residency</div>
+        <div class="form-grid">
+          <div class="fg full">
+            <label>State you live in</label>
+            <select id="f_state">
+              <option value="">— Select your state —</option>
+              <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option>
+              <option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option>
+              <option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+              <option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option>
+              <option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option>
+              <option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+              <option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option>
+              <option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option>
+              <option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+              <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option>
+              <option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option>
+              <option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option>
+              <option>Wisconsin</option><option>Wyoming</option><option>Washington D.C.</option>
+            </select>
+          </div>
+          <div class="fg full">
+            <label>Residency Status <span style="font-size:.75rem;color:var(--gray-500);font-weight:400;">— determines your tuition cost</span></label>
+            <div id="residencyOptions" style="display:flex;flex-direction:column;gap:.6rem;margin-top:.25rem;">
+              <div class="res-option" id="res_instate" onclick="selectResidency('in_state')">
+                <div class="res-radio" id="rr_instate"></div>
+                <div class="res-content">
+                  <div class="res-title">In-State Student</div>
+                  <div class="res-desc">You have legal residency in the state where you plan to attend. Qualifies for significantly lower tuition at public colleges.</div>
+                  <div class="res-saving">💰 Saves $15,000–$60,000 vs out-of-state at public universities</div>
+                </div>
+              </div>
+              <div class="res-option" id="res_outstate" onclick="selectResidency('out_of_state')">
+                <div class="res-radio" id="rr_outstate"></div>
+                <div class="res-content">
+                  <div class="res-title">Out-of-State Student</div>
+                  <div class="res-desc">You are moving to a new state for college, or do not yet meet residency requirements. Out-of-state rates apply at public schools.</div>
+                  <div class="res-saving">🏫 Online and private schools charge the same for everyone</div>
+                </div>
+              </div>
+              <div class="res-option" id="res_intl" onclick="selectResidency('international')">
+                <div class="res-radio" id="rr_intl"></div>
+                <div class="res-content">
+                  <div class="res-title">International Student</div>
+                  <div class="res-desc">You are not a US citizen or permanent resident. F-1 visa tuition rates apply. Most federal aid (FAFSA/Pell) is not available.</div>
+                  <div class="res-saving">🌍 Many schools offer international merit scholarships</div>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" id="f_residency"/>
+          </div>
+        </div>
+        <button class="btn-submit" onclick="nextStep(2)">Continue →</button>
+        <button class="btn-back-step" onclick="prevStep(2)">← Back</button>
+      </div>
+
+      <!-- STEP 3 — ACADEMIC PROFILE -->
+      <div class="form-step" id="fs3">
+        <div class="step-lbl">Step 3 of 4 — Academic Profile</div>
+        <div class="form-grid">
+          <div class="fg full" style="position:relative;">
+            <label for="careerSearchInput">Target Career</label>
+            <div class="career-combo" id="careerCombo">
+              <div class="career-combo-input-wrap">
+                <svg class="career-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <input type="text" id="careerSearchInput" class="career-search-input" placeholder="Search 300+ careers… e.g. Nurse, Engineer, Teacher" autocomplete="off" oninput="filterCareers()" onfocus="openCareerDropdown()" />
+                <span class="career-clear" id="careerClear" onclick="clearCareer()" title="Clear">✕</span>
+              </div>
+              <div class="career-dropdown-list" id="careerDropdownList"></div>
+            </div>
+            <input type="hidden" id="f_career" />
+          </div>
+          <div class="fg full">
+            <label>Current GPA</label>
+            <select id="f_gpa">
+              <option value="">— Select GPA range —</option>
+              <option value="below_2">Below 2.0</option>
+              <option value="2_to_2_5">2.0 – 2.5</option>
+              <option value="2_5_to_3">2.5 – 3.0</option>
+              <option value="3_to_3_5">3.0 – 3.5</option>
+              <option value="3_5_to_4">3.5 – 4.0</option>
+            </select>
+          </div>
+          <div class="fg full">
+            <label>Annual Budget (out of pocket)</label>
+            <select id="f_budget">
+              <option value="">— Select budget range —</option>
+              <option value="5000">Under $5,000/yr</option>
+              <option value="10000">$5,000 – $10,000/yr</option>
+              <option value="15000">$10,000 – $20,000/yr</option>
+              <option value="30000">$20,000 – $40,000/yr</option>
+              <option value="50000">Over $40,000/yr</option>
+            </select>
+          </div>
+          <div class="fg full">
+            <label>Preferred Learning Format</label>
+            <select id="f_format">
+              <option value="">— Select format —</option>
+              <option value="in_person">In-Person</option>
+              <option value="online">Online</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="no_preference">No preference</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-submit" onclick="nextStep(3)">Continue →</button>
+        <button class="btn-back-step" onclick="prevStep(3)">← Back</button>
+      </div>
+
+      <!-- STEP 4 — REVIEW & SUBMIT -->
+      <div class="form-step" id="fs4">
+        <div class="step-lbl">Step 4 of 4 — Review & Launch</div>
+        <div class="summary-box">
+          <div class="slabel">Your Profile Summary</div>
+          <div id="summaryContent" style="font-size:.88rem;color:var(--charcoal);line-height:2.1;"></div>
+        </div>
+        <div class="perks-box">
+          <div class="plabel">🎉 What you get — completely free</div>
+          <ul>
+            <li>Account saved — log back in anytime to view your plan</li>
+            <li>Residency-adjusted tuition costs for your exact situation</li>
+            <li>Side-by-side pathway comparison with 6 scoring dimensions</li>
+            <li>Semester credit plan + scholarships + 10-year ROI</li>
+          </ul>
+        </div>
+        <div id="submitError" style="display:none;background:#FDECEA;border:1px solid #C0392B;border-radius:8px;padding:.85rem 1rem;margin-bottom:1rem;font-size:.85rem;color:#C0392B;"></div>
+        <button class="btn-submit" id="submitBtn" onclick="submitSignup()">🚀 Build My Free Plan</button>
+        <button class="btn-back-step" onclick="prevStep(4)">← Back</button>
+        <p style="font-size:.75rem;color:var(--gray-500);text-align:center;margin-top:.85rem;">By creating an account you agree to our <a href="#" style="color:var(--gold);">Terms</a> and <a href="#" style="color:var(--gold);">Privacy Policy</a>.</p>
+      </div>
+    </div>
+    <!-- SUCCESS -->
+    <div class="success-card" id="successCard">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <h3>You're all set! 🎉</h3>
+      <p class="sc-sub" id="welcomeMsg"></p>
+      <div class="coming-next">
+        <div class="cnlabel">What's coming in your full dashboard</div>
+        <ul>
+          <li>Your top 3 ranked pathways with full scoring breakdown</li>
+          <li>Semester plan with exact courses for your #1 path</li>
+          <li>Scholarships you qualify for right now</li>
+          <li>State licensing requirements for your career</li>
+          <li>10-year earnings vs. debt projection chart</li>
+        </ul>
+      </div>
+      <button class="btn-submit" onclick="showPage('home')" style="margin-top:0;">← Explore the platform</button>
+      </div>
+    </div>
+
+    <!-- LOGIN CARD -->
+    <div class="login-card" id="loginCard">
+      <div class="free-badge" style="background:var(--navy-light);border-color:rgba(27,42,74,.2);color:var(--navy);">🔒 Secure Sign In</div>
+      <h2 style="margin-bottom:.4rem;">Welcome back</h2>
+      <p class="sub">Sign in to view your saved pathways and academic plan.</p>
+      <div class="form-grid" style="grid-template-columns:1fr;">
+        <div class="fg"><label>Email Address</label><input type="email" id="login_email" placeholder="maria@gmail.com"/></div>
+        <div class="fg">
+          <label>Password</label>
+          <div style="position:relative;">
+            <input type="password" id="login_password" placeholder="Your password" style="width:100%;padding-right:2.5rem;"/>
+            <button type="button" onclick="var i=document.getElementById('login_password');i.type=i.type==='password'?'text':'password';" style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-500);font-size:.8rem;">Show</button>
+          </div>
+        </div>
+      </div>
+      <div id="loginError" style="display:none;background:#FDECEA;border:1px solid #C0392B;border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;font-size:.85rem;color:#C0392B;margin-top:.5rem;"></div>
+      <button class="btn-submit" id="loginBtn" onclick="submitLogin()" style="margin-top:1rem;">Sign In →</button>
+      <button class="btn-back-step" onclick="showSignupForm()" style="margin-top:.65rem;">← Create a new account</button>
+      <p style="text-align:center;font-size:.8rem;color:var(--gray-500);margin-top:.85rem;"><a href="#" style="color:var(--gold);">Forgot your password?</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── PAGE NAV ─────────────────────────────────────────────────────
+function showPage(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ── HERO CAREER PICKER ───────────────────────────────────────────
+var hDescs=[];
+function showPaths(btn,career,p1d,p1g,p1r,p2d,p2g,p2r,p3d,p3g,p3r,n1,d1,n2,d2,n3,d3){
+  document.querySelectorAll('.career-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  hDescs=[{name:n1,desc:d1},{name:n2,desc:d2},{name:n3,desc:d3}];
+  document.getElementById('careerName').textContent=career;
+  document.getElementById('hp1name').textContent=n1;
+  document.getElementById('hp2name').textContent=n2;
+  document.getElementById('hp3name').textContent=n3;
+  document.getElementById('p1debt').textContent=p1d;
+  document.getElementById('p1grad').textContent=p1g;
+  document.getElementById('p1roi').textContent=p1r;
+  document.getElementById('p2debt').textContent=p2d;
+  document.getElementById('p2grad').textContent=p2g;
+  document.getElementById('p2roi').textContent=p2r;
+  document.getElementById('p3debt').textContent=p3d;
+  document.getElementById('p3grad').textContent=p3g;
+  document.getElementById('p3roi').textContent=p3r;
+  document.getElementById('pathPreview').classList.add('show');
+  document.getElementById('heroDetail').classList.remove('show');
+  // Clear all hero card selections on new career pick
+  document.querySelectorAll('.phcard').forEach(c=>c.classList.remove('active'));
+}
+
+// Hero path selection — all 3 cards use identical active state
+function selectHeroPath(n){
+  document.querySelectorAll('.phcard').forEach(c=>c.classList.remove('active'));
+  document.getElementById('hp'+n).classList.add('active');
+  var d=hDescs[n-1];
+  document.getElementById('heroDetailTitle').textContent='Path '+n+': '+d.name;
+  document.getElementById('heroDetailText').textContent=d.desc;
+  var det=document.getElementById('heroDetail');
+  det.classList.add('show');
+  det.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ── DASHBOARD PATH CARDS — all 3 identical selection behavior ────
+var dashData={
+  1:{title:'Path 1: Community College → University (2+2)',text:'The most cost-effective nursing pathway nationwide.',
+     bullets:['Years 1–2: ADN prerequisites at Miami Dade College (~$4,250/yr)','Formal articulation transfer to FIU in semester 3','Years 3–4: BSN at FIU College of Nursing (~$4,250/yr)','Total debt: $8,500 — lowest of all 3 paths','ACEN accredited · Florida Board of Nursing approved']},
+  2:{title:'Path 2: Direct 4-Year University (UCF)',text:'Strong clinical program with direct-entry nursing track.',
+     bullets:["Direct enrollment in UCF's BSN — competitive admission",'Annual cost ~$9,500/yr in-state','Clinical rotations at Orlando Health and AdventHealth','Total debt: $38,000 over 4 years','CCNE accredited · Florida Board of Nursing approved']},
+  3:{title:'Path 3: Online Accelerated BSN (WGU)',text:'Fully online, self-paced with local clinical placement.',
+     bullets:['Self-paced RN-to-BSN or pre-licensure BSN program','Flat-rate tuition ~$8,500/6-month term','Requires local clinical placement arranged by student','Total debt: $25,000 over 3 years','CCNE accredited · Accepted by Florida Board of Nursing']}
+};
+function selectDashPath(n){
+  // Remove selected from ALL cards first — identical treatment for all 3
+  document.querySelectorAll('.pcard').forEach(c=>c.classList.remove('selected'));
+  // Add selected to clicked card
+  document.getElementById('dc'+n).classList.add('selected');
+  var d=dashData[n];
+  document.getElementById('dashDetailTitle').textContent=d.title;
+  document.getElementById('dashDetailText').textContent=d.text;
+  var ul=document.getElementById('dashDetailList');
+  ul.innerHTML='';
+  d.bullets.forEach(function(b){var li=document.createElement('li');li.textContent=b;ul.appendChild(li);});
+  var det=document.getElementById('dashDetail');
+  det.classList.add('show');
+  det.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ── SLIDERS ──────────────────────────────────────────────────────
+function updateSlider(input,vid,bid){
+  document.getElementById(vid).textContent=input.value+'%';
+  document.getElementById(bid).style.width=input.value+'%';
+}
+
+// ── DELIVERY FILTER — radio/mutual exclusivity ───────────────────
+function selectFilter(el){
+  document.querySelectorAll('.fpill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+}
+
+// ── PROFILE DROPDOWNS ────────────────────────────────────────────
+function toggleDrop(id){
+  document.querySelectorAll('.field-dropdown').forEach(function(d){if(d.id!==id)d.classList.remove('open');});
+  document.getElementById(id).classList.toggle('open');
+}
+function setField(fid,val,did){
+  document.getElementById(fid).textContent=val;
+  document.getElementById(did).classList.remove('open');
+  document.querySelectorAll('#'+did+' .field-opt').forEach(function(o){o.classList.toggle('sel',o.textContent===val);});
+}
+document.addEventListener('click',function(e){
+  if(!e.target.classList.contains('editable')&&!e.target.closest('.field-dropdown'))
+    document.querySelectorAll('.field-dropdown').forEach(function(d){d.classList.remove('open');});
+});
+
+// ── SIGN UP FORM — 4-step with account creation + residency ──────
+var fd = {};
+var selectedResidency = '';
+
+// Password show/hide
+function togglePwd() {
+  var inp = document.getElementById('f_password');
+  var btn = document.getElementById('pwdToggleBtn');
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'Hide'; }
+  else { inp.type = 'password'; btn.textContent = 'Show'; }
+}
+
+// Password strength checker
+function checkPwdStrength(val) {
+  var el = document.getElementById('pwdStrength');
+  if (!val) { el.textContent = ''; return; }
+  var score = 0;
+  if (val.length >= 8)    score++;
+  if (/[A-Z]/.test(val))  score++;
+  if (/[0-9]/.test(val))  score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  var labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+  var colors = ['', '#C0392B', '#C8922A', '#4A7C6F', '#1B2A4A'];
+  el.textContent = 'Strength: ' + (labels[score] || 'Weak');
+  el.style.color = colors[score] || '#C0392B';
+}
+
+// Residency selection
+function selectResidency(val) {
+  selectedResidency = val;
+  document.getElementById('f_residency').value = val;
+  var map = { in_state:'instate', out_of_state:'outstate', international:'intl' };
+  ['instate','outstate','intl'].forEach(function(id) {
+    var opt = document.getElementById('res_' + id);
+    var radio = document.getElementById('rr_' + id);
+    if (opt) opt.classList.toggle('selected', map[val] === id);
+  });
+}
+
+// Login form toggle
+function showLoginForm() {
+  var card = document.getElementById('signupCard');
+  var loginCard = document.getElementById('loginCard');
+  if (card) card.style.display = 'none';
+  if (loginCard) { loginCard.style.display = 'block'; loginCard.classList.add('active'); }
+}
+function showSignupForm() {
+  var card = document.getElementById('signupCard');
+  var loginCard = document.getElementById('loginCard');
+  if (card) card.style.display = 'block';
+  if (loginCard) { loginCard.style.display = 'none'; }
+}
+
+// Step navigation
+function nextStep(cur) {
+  var err = '';
+
+  if (cur === 1) {
+    var fn  = document.getElementById('f_first').value.trim();
+    var ln  = document.getElementById('f_last').value.trim();
+    var em  = document.getElementById('f_email').value.trim();
+    var usr = document.getElementById('f_username').value.trim();
+    var pwd = document.getElementById('f_password').value;
+    if (!fn || !ln || !em || !usr || !pwd) { alert('Please fill in all fields.'); return; }
+    if (!em.includes('@')) { alert('Please enter a valid email address.'); return; }
+    if (usr.length < 3 || !/^[a-zA-Z0-9_]+$/.test(usr)) { alert('Username must be 3+ characters using only letters, numbers, and underscores.'); return; }
+    if (pwd.length < 8 || !/[A-Z]/.test(pwd) || !/[0-9]/.test(pwd)) { alert('Password must be at least 8 characters and include 1 uppercase letter and 1 number.'); return; }
+    fd.first_name = fn; fd.last_name = ln; fd.email = em; fd.username = usr; fd.password = pwd;
+  }
+
+  if (cur === 2) {
+    var st = document.getElementById('f_state').value;
+    var res = document.getElementById('f_residency').value;
+    if (!st) { alert('Please select your state.'); return; }
+    if (!res) { alert('Please select your residency status.'); return; }
+    // Map state name to 2-char abbreviation
+    var stateMap = {
+      'Alabama':'AL','Alaska':'AK','Arizona':'AZ','Arkansas':'AR','California':'CA',
+      'Colorado':'CO','Connecticut':'CT','Delaware':'DE','Florida':'FL','Georgia':'GA',
+      'Hawaii':'HI','Idaho':'ID','Illinois':'IL','Indiana':'IN','Iowa':'IA','Kansas':'KS',
+      'Kentucky':'KY','Louisiana':'LA','Maine':'ME','Maryland':'MD','Massachusetts':'MA',
+      'Michigan':'MI','Minnesota':'MN','Mississippi':'MS','Missouri':'MO','Montana':'MT',
+      'Nebraska':'NE','Nevada':'NV','New Hampshire':'NH','New Jersey':'NJ','New Mexico':'NM',
+      'New York':'NY','North Carolina':'NC','North Dakota':'ND','Ohio':'OH','Oklahoma':'OK',
+      'Oregon':'OR','Pennsylvania':'PA','Rhode Island':'RI','South Carolina':'SC',
+      'South Dakota':'SD','Tennessee':'TN','Texas':'TX','Utah':'UT','Vermont':'VT',
+      'Virginia':'VA','Washington':'WA','West Virginia':'WV','Wisconsin':'WI',
+      'Wyoming':'WY','Washington D.C.':'DC'
+    };
+    fd.home_state = stateMap[st] || st.substring(0,2).toUpperCase();
+    fd.home_state_full = st;
+    fd.residency = res;
+  }
+
+  if (cur === 3) {
+    var ca = document.getElementById('f_career').value;
+    var gp = document.getElementById('f_gpa').value;
+    var bu = document.getElementById('f_budget').value;
+    var fo = document.getElementById('f_format').value;
+    if (!ca) { alert('Please select your target career.'); return; }
+    if (!gp || !bu || !fo) { alert('Please fill in all academic fields.'); return; }
+    fd.career = ca; fd.gpa_range = gp; fd.budget_usd = bu; fd.class_mode = fo;
+    var residencyLabel = {in_state:'In-State', out_of_state:'Out-of-State', international:'International'};
+    document.getElementById('summaryContent').innerHTML =
+      '👤 <strong>' + fd.first_name + ' ' + fd.last_name + '</strong> (@' + fd.username + ')<br>' +
+      '📧 ' + fd.email + '<br>' +
+      '📍 ' + fd.home_state_full + ' · <strong>' + (residencyLabel[fd.residency] || fd.residency) + '</strong> student<br>' +
+      '🎯 Career: <strong>' + fd.career + '</strong><br>' +
+      '📚 GPA: ' + gp + ' · Budget: $' + parseInt(bu).toLocaleString() + '/yr<br>' +
+      '🏫 Format: ' + fo;
+  }
+
+  // Advance step
+  document.getElementById('fs' + cur).classList.remove('active');
+  document.getElementById('fs' + (cur + 1)).classList.add('active');
+  for (var i = 1; i <= cur + 1; i++) {
+    var dot = document.getElementById('sd' + i);
+    if (dot) dot.classList.add('done');
+  }
+  window.scrollTo(0, document.getElementById('signupCard').offsetTop - 80);
+}
+
+function prevStep(cur) {
+  document.getElementById('fs' + cur).classList.remove('active');
+  document.getElementById('fs' + (cur - 1)).classList.add('active');
+  var dot = document.getElementById('sd' + cur);
+  if (dot) dot.classList.remove('done');
+}
+
+// Submit — calls /api/register, then redirects to /dashboard
+async function submitSignup() {
+  var btn = document.getElementById('submitBtn');
+  var errDiv = document.getElementById('submitError');
+  btn.textContent = '⏳ Creating your account…';
+  btn.disabled = true;
+  errDiv.style.display = 'none';
+
+  try {
+    // Find the selected career's SOC code
+    var socCode = '';
+    if (fd.career) {
+      var match = CAREER_DB.find(function(c) { return c.t === fd.career; });
+      if (match) socCode = match.s || '';
+    }
+
+    var payload = {
+      email:          fd.email,
+      username:       fd.username,
+      password:       fd.password,
+      first_name:     fd.first_name,
+      last_name:      fd.last_name,
+      home_state:     fd.home_state,
+      residency:      fd.residency,
+      career:         fd.career,
+      career_soc_code: socCode,
+      gpa_range:      fd.gpa_range,
+      transfer_credits: 0,
+      budget_usd:     fd.budget_usd,
+      class_mode:     fd.class_mode,
+      degree_level:   'bachelor',
+    };
+
+    var res = await fetch('/api/register', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+    var data = await res.json();
+
+    if (!res.ok) {
+      errDiv.textContent = data.error || 'Registration failed. Please try again.';
+      errDiv.style.display = 'block';
+      btn.textContent = '🚀 Build My Free Plan';
+      btn.disabled = false;
+      return;
+    }
+
+    // Success — redirect to dashboard
+    if (data.redirect) {
+      window.location.href = data.redirect;
+    } else {
+      // Fallback: show success state in current page
+      document.getElementById('signupCard').style.display = 'none';
+      var sc = document.getElementById('successCard');
+      sc.style.display = 'block';
+      var wm = document.getElementById('welcomeMsg');
+      if (wm) wm.textContent = 'Welcome, ' + fd.first_name + '! Your pathway plan for ' + fd.career + ' in ' + fd.home_state_full + ' has been saved. Check your email for your results.';
+      window.scrollTo(0, 0);
+    }
+
+  } catch (err) {
+    errDiv.textContent = 'Network error. Please check your connection and try again.';
+    errDiv.style.display = 'block';
+    btn.textContent = '🚀 Build My Free Plan';
+    btn.disabled = false;
+  }
+}
+
+// Login submit
+async function submitLogin() {
+  var em  = document.getElementById('login_email').value.trim();
+  var pwd = document.getElementById('login_password').value;
+  var btn = document.getElementById('loginBtn');
+  var errDiv = document.getElementById('loginError');
+  if (!em || !pwd) { alert('Please enter your email and password.'); return; }
+  btn.textContent = 'Signing in…';
+  btn.disabled = true;
+  errDiv.style.display = 'none';
+  try {
+    var res  = await fetch('/api/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:em, password:pwd}) });
+    var data = await res.json();
+    if (!res.ok) {
+      errDiv.textContent = data.error || 'Login failed.';
+      errDiv.style.display = 'block';
+      btn.textContent = 'Sign In →';
+      btn.disabled = false;
+      return;
+    }
+    window.location.href = data.redirect || '/dashboard';
+  } catch (err) {
+    errDiv.textContent = 'Network error. Please try again.';
+    errDiv.style.display = 'block';
+    btn.textContent = 'Sign In →';
+    btn.disabled = false;
+  }
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// UNIVERSAL CAREER DATABASE — 300+ careers from O*NET/BLS/SOC
+// Grouped by SOC major category. Each entry: [title, soc_code, cip_hint]
+// ══════════════════════════════════════════════════════════════════
+var CAREER_DB = [
+  // ── HEALTHCARE PRACTITIONERS ────────────────────────────────────
+  {g:'Healthcare — Clinical'},
+  {t:'Registered Nurse (RN)',             s:'29-1141',c:'51.38'},
+  {t:'Nurse Practitioner (NP)',           s:'29-1171',c:'51.38'},
+  {t:'Nurse Anesthetist (CRNA)',          s:'29-1151',c:'51.38'},
+  {t:'Nurse Midwife',                     s:'29-1161',c:'51.38'},
+  {t:'Licensed Practical Nurse (LPN)',    s:'29-2061',c:'51.39'},
+  {t:'Physician (MD/DO)',                 s:'29-1216',c:'51.12'},
+  {t:'Physician Assistant (PA)',          s:'29-1071',c:'51.09'},
+  {t:'Anesthesiologist',                  s:'29-1211',c:'51.12'},
+  {t:'Surgeon',                           s:'29-1248',c:'51.12'},
+  {t:'Psychiatrist',                      s:'29-1223',c:'51.12'},
+  {t:'Pediatrician',                      s:'29-1221',c:'51.12'},
+  {t:'Emergency Medicine Physician',      s:'29-1214',c:'51.12'},
+  {t:'Family Medicine Physician',         s:'29-1215',c:'51.12'},
+  {t:'Physical Therapist (PT)',           s:'29-1123',c:'51.23'},
+  {t:'Occupational Therapist (OT)',       s:'29-1122',c:'51.23'},
+  {t:'Speech-Language Pathologist',       s:'29-1127',c:'51.02'},
+  {t:'Respiratory Therapist',             s:'29-1126',c:'51.09'},
+  {t:'Pharmacist',                        s:'29-1051',c:'51.20'},
+  {t:'Pharmacy Technician',               s:'29-2052',c:'51.20'},
+  {t:'Dental Hygienist',                  s:'29-2021',c:'51.06'},
+  {t:'Dentist (DDS/DMD)',                 s:'29-1021',c:'51.04'},
+  {t:'Orthodontist',                      s:'29-1023',c:'51.04'},
+  {t:'Oral Surgeon',                      s:'29-1024',c:'51.04'},
+  {t:'Optometrist',                       s:'29-1041',c:'51.17'},
+  {t:'Chiropractor',                      s:'29-1011',c:'51.01'},
+  {t:'Podiatrist',                        s:'29-1081',c:'51.21'},
+  {t:'Radiologic Technologist',           s:'29-2034',c:'51.09'},
+  {t:'MRI Technologist',                  s:'29-2035',c:'51.09'},
+  {t:'Sonographer / Ultrasound Tech',     s:'29-2032',c:'51.09'},
+  {t:'Nuclear Medicine Technologist',     s:'29-2033',c:'51.09'},
+  {t:'Surgical Technologist',             s:'29-2055',c:'51.09'},
+  {t:'EMT / Paramedic',                   s:'29-2042',c:'51.09'},
+  {t:'Medical Laboratory Scientist',      s:'29-2011',c:'51.10'},
+  {t:'Phlebotomist',                      s:'29-2012',c:'51.10'},
+  {t:'Dietitian / Nutritionist',          s:'29-1031',c:'51.31'},
+  {t:'Athletic Trainer',                  s:'29-9091',c:'51.07'},
+  {t:'Veterinarian',                      s:'29-1131',c:'51.08'},
+  {t:'Veterinary Technician',             s:'29-2056',c:'51.08'},
+  {t:'Genetic Counselor',                 s:'29-9092',c:'26.08'},
+  {t:'Health Information Manager',        s:'11-9111',c:'51.07'},
+  {t:'Medical Coder / Biller',            s:'29-2072',c:'51.07'},
+  {t:'Home Health Aide',                  s:'31-1121',c:'51.26'},
+  {t:'Dental Assistant',                  s:'31-9091',c:'51.06'},
+  {t:'Medical Assistant',                 s:'31-9092',c:'51.07'},
+  {t:'Pharmacy Aide',                     s:'31-9095',c:'51.20'},
+  {t:'Psychiatric Aide',                  s:'31-1133',c:'51.15'},
+  {t:'Ophthalmic Medical Technician',     s:'29-2057',c:'51.17'},
+  // ── MENTAL HEALTH & SOCIAL SERVICES ────────────────────────────
+  {g:'Mental Health & Social Services'},
+  {t:'Clinical Psychologist',             s:'19-3031',c:'42.01'},
+  {t:'Counseling Psychologist',           s:'19-3032',c:'42.01'},
+  {t:'School Psychologist',               s:'19-3034',c:'42.28'},
+  {t:'Licensed Clinical Social Worker',   s:'21-1022',c:'44.07'},
+  {t:'Social Worker (BSW)',               s:'21-1021',c:'44.07'},
+  {t:'Marriage & Family Therapist',       s:'21-1013',c:'51.15'},
+  {t:'Mental Health Counselor',           s:'21-1014',c:'51.15'},
+  {t:'Substance Abuse Counselor',         s:'21-1011',c:'51.15'},
+  {t:'School Counselor',                  s:'21-1012',c:'13.11'},
+  {t:'Rehabilitation Counselor',          s:'21-1015',c:'51.23'},
+  {t:'Community Health Worker',           s:'21-1094',c:'51.22'},
+  {t:'Social & Human Service Assistant',  s:'21-1093',c:'44.00'},
+  {t:'Probation / Parole Officer',        s:'21-1092',c:'43.01'},
+  // ── TECHNOLOGY & COMPUTER SCIENCE ───────────────────────────────
+  {g:'Technology & Computer Science'},
+  {t:'Software Engineer',                 s:'15-1252',c:'11.07'},
+  {t:'Software Developer (Applications)', s:'15-1251',c:'11.07'},
+  {t:'Full-Stack Web Developer',          s:'15-1254',c:'11.08'},
+  {t:'Front-End Developer',               s:'15-1255',c:'11.08'},
+  {t:'Back-End Developer',                s:'15-1256',c:'11.07'},
+  {t:'Mobile App Developer',              s:'15-1253',c:'11.07'},
+  {t:'DevOps / Site Reliability Engineer',s:'15-1244',c:'11.09'},
+  {t:'Cloud Architect',                   s:'15-1299',c:'11.09'},
+  {t:'Cybersecurity Analyst',             s:'15-1212',c:'11.10'},
+  {t:'Information Security Manager',      s:'11-3021',c:'11.10'},
+  {t:'Penetration Tester (Ethical Hacker)',s:'15-1299',c:'11.10'},
+  {t:'Data Scientist',                    s:'15-2051',c:'30.70'},
+  {t:'Data Analyst',                      s:'15-2041',c:'30.70'},
+  {t:'Data Engineer',                     s:'15-1242',c:'15.16'},
+  {t:'Machine Learning Engineer',         s:'15-1299',c:'11.01'},
+  {t:'Artificial Intelligence Researcher',s:'15-2099',c:'11.01'},
+  {t:'Database Administrator (DBA)',      s:'15-1242',c:'11.07'},
+  {t:'Network Administrator',             s:'15-1244',c:'11.09'},
+  {t:'Systems Administrator',             s:'15-1244',c:'11.09'},
+  {t:'IT Support Specialist',             s:'15-1232',c:'11.04'},
+  {t:'Computer Systems Analyst',          s:'15-1211',c:'11.05'},
+  {t:'Business Intelligence Analyst',     s:'15-2041',c:'52.12'},
+  {t:'QA / Test Engineer',               s:'15-1253',c:'11.07'},
+  {t:'UX / UI Designer',                  s:'27-1021',c:'50.04'},
+  {t:'Product Manager (Tech)',            s:'11-9199',c:'52.02'},
+  {t:'IT Project Manager',               s:'11-3021',c:'52.02'},
+  {t:'Blockchain Developer',              s:'15-1252',c:'11.07'},
+  {t:'Game Developer',                    s:'15-1252',c:'11.08'},
+  {t:'Robotics Engineer',                 s:'17-2199',c:'14.19'},
+  {t:'Computer Hardware Engineer',        s:'17-2061',c:'14.09'},
+  {t:'GIS Analyst',                       s:'15-1299',c:'45.07'},
+  // ── ENGINEERING ─────────────────────────────────────────────────
+  {g:'Engineering'},
+  {t:'Civil Engineer',                    s:'17-2051',c:'14.08'},
+  {t:'Structural Engineer',               s:'17-2051',c:'14.08'},
+  {t:'Mechanical Engineer',               s:'17-2141',c:'14.19'},
+  {t:'Electrical Engineer',               s:'17-2071',c:'14.10'},
+  {t:'Electronics Engineer',              s:'17-2072',c:'14.10'},
+  {t:'Chemical Engineer',                 s:'17-2041',c:'14.07'},
+  {t:'Aerospace Engineer',                s:'17-2011',c:'14.02'},
+  {t:'Industrial Engineer',               s:'17-2112',c:'14.35'},
+  {t:'Environmental Engineer',            s:'17-2081',c:'14.14'},
+  {t:'Biomedical Engineer',               s:'17-2031',c:'14.05'},
+  {t:'Petroleum Engineer',                s:'17-2171',c:'14.25'},
+  {t:'Nuclear Engineer',                  s:'17-2161',c:'14.23'},
+  {t:'Materials Engineer',                s:'17-2131',c:'14.18'},
+  {t:'Agricultural Engineer',             s:'17-2021',c:'14.03'},
+  {t:'Geotechnical Engineer',             s:'17-2051',c:'14.08'},
+  {t:'Systems Engineer',                  s:'17-2199',c:'14.27'},
+  {t:'Manufacturing Engineer',            s:'17-2112',c:'14.35'},
+  {t:'Reliability Engineer',              s:'17-2112',c:'14.35'},
+  {t:'Engineering Technician',            s:'17-3029',c:'15.00'},
+  {t:'Surveyor',                          s:'17-1022',c:'15.12'},
+  {t:'Cartographer / Mapping Scientist',  s:'17-1021',c:'45.07'},
+  {t:'Drafter (CAD)',                     s:'17-3013',c:'15.13'},
+  // ── ARCHITECTURE & DESIGN ───────────────────────────────────────
+  {g:'Architecture & Design'},
+  {t:'Architect',                         s:'17-1011',c:'04.02'},
+  {t:'Landscape Architect',               s:'17-1012',c:'04.06'},
+  {t:'Interior Designer',                 s:'27-1025',c:'04.09'},
+  {t:'Urban & Regional Planner',          s:'19-3051',c:'04.03'},
+  {t:'Graphic Designer',                  s:'27-1024',c:'50.04'},
+  {t:'Industrial / Product Designer',     s:'27-1021',c:'50.04'},
+  {t:'Fashion Designer',                  s:'27-1022',c:'50.04'},
+  {t:'Floral Designer',                   s:'27-1023',c:'01.06'},
+  {t:'Multimedia Artist / Animator',      s:'27-1014',c:'50.06'},
+  {t:'Web Designer',                      s:'27-1024',c:'11.08'},
+  {t:'Art Director',                      s:'27-1011',c:'50.07'},
+  // ── BUSINESS & FINANCE ──────────────────────────────────────────
+  {g:'Business & Finance'},
+  {t:'Accountant',                        s:'13-2011',c:'52.03'},
+  {t:'Certified Public Accountant (CPA)', s:'13-2011',c:'52.03'},
+  {t:'Auditor',                           s:'13-2011',c:'52.03'},
+  {t:'Financial Analyst',                 s:'13-2051',c:'52.08'},
+  {t:'Financial Advisor / Planner',       s:'13-2052',c:'52.08'},
+  {t:'Investment Banker',                 s:'13-2051',c:'52.08'},
+  {t:'Budget Analyst',                    s:'13-2031',c:'52.08'},
+  {t:'Cost Estimator',                    s:'13-1051',c:'52.02'},
+  {t:'Tax Examiner / Preparer',           s:'13-2082',c:'52.03'},
+  {t:'Actuary',                           s:'15-2011',c:'52.13'},
+  {t:'Economist',                         s:'19-3011',c:'45.06'},
+  {t:'Market Research Analyst',           s:'13-1161',c:'52.14'},
+  {t:'Operations Research Analyst',       s:'15-2031',c:'52.02'},
+  {t:'Management Consultant',             s:'13-1111',c:'52.02'},
+  {t:'HR Manager',                        s:'11-3121',c:'52.10'},
+  {t:'HR Specialist / Recruiter',         s:'13-1071',c:'52.10'},
+  {t:'Training & Development Specialist', s:'13-1151',c:'52.10'},
+  {t:'Compensation & Benefits Manager',   s:'11-3111',c:'52.10'},
+  {t:'Logistician',                       s:'13-1081',c:'52.02'},
+  {t:'Supply Chain Manager',              s:'11-3071',c:'52.02'},
+  {t:'Purchasing Agent / Buyer',          s:'13-1023',c:'52.02'},
+  {t:'Marketing Manager',                 s:'11-2021',c:'52.14'},
+  {t:'Marketing Specialist',              s:'13-1161',c:'52.14'},
+  {t:'Advertising Manager',               s:'11-2011',c:'09.01'},
+  {t:'Public Relations Specialist',       s:'27-3031',c:'09.01'},
+  {t:'Sales Manager',                     s:'11-2022',c:'52.18'},
+  {t:'Business Development Manager',      s:'11-2022',c:'52.02'},
+  {t:'Entrepreneur / Small Business Owner',s:'11-1011',c:'52.07'},
+  {t:'Real Estate Broker / Agent',        s:'41-9021',c:'52.15'},
+  {t:'Real Estate Appraiser',             s:'13-2021',c:'52.15'},
+  {t:'Insurance Underwriter',             s:'13-2053',c:'52.17'},
+  {t:'Claims Adjuster',                   s:'13-1031',c:'52.17'},
+  {t:'Loan Officer',                      s:'13-2072',c:'52.08'},
+  {t:'Financial Examiner',                s:'13-2061',c:'52.08'},
+  {t:'Compliance Officer',                s:'13-1041',c:'52.02'},
+  // ── EDUCATION ───────────────────────────────────────────────────
+  {g:'Education'},
+  {t:'Elementary School Teacher',         s:'25-2021',c:'13.12'},
+  {t:'Middle School Teacher',             s:'25-2022',c:'13.12'},
+  {t:'High School Teacher',               s:'25-2031',c:'13.12'},
+  {t:'Special Education Teacher',         s:'25-2051',c:'13.10'},
+  {t:'Early Childhood Educator (Pre-K)',  s:'25-2011',c:'13.12'},
+  {t:'Kindergarten Teacher',              s:'25-2012',c:'13.12'},
+  {t:'Vocational / CTE Teacher',          s:'25-2032',c:'13.13'},
+  {t:'ESL / ELL Teacher',                 s:'25-3011',c:'13.14'},
+  {t:'Instructional Designer',            s:'25-9031',c:'13.05'},
+  {t:'Curriculum Developer',              s:'25-9031',c:'13.05'},
+  {t:'School Principal',                  s:'11-9032',c:'13.04'},
+  {t:'University Professor',              s:'25-1099',c:'13.06'},
+  {t:'Librarian',                         s:'25-4022',c:'25.01'},
+  {t:'School Librarian / Media Specialist',s:'25-4022',c:'25.01'},
+  {t:'Teacher Assistant / Paraprofessional',s:'25-9042',c:'13.12'},
+  {t:'Tutor / Learning Specialist',       s:'25-3041',c:'13.12'},
+  {t:'Academic Advisor',                  s:'25-9031',c:'13.11'},
+  {t:'College Admissions Counselor',      s:'13-1021',c:'13.11'},
+  // ── LAW & LEGAL ─────────────────────────────────────────────────
+  {g:'Law & Legal'},
+  {t:'Lawyer (JD)',                       s:'23-1011',c:'22.01'},
+  {t:'Corporate Attorney',                s:'23-1011',c:'22.01'},
+  {t:'Criminal Defense Attorney',         s:'23-1011',c:'22.01'},
+  {t:'Family Law Attorney',               s:'23-1011',c:'22.01'},
+  {t:'Immigration Attorney',              s:'23-1011',c:'22.01'},
+  {t:'Public Defender',                   s:'23-1012',c:'22.01'},
+  {t:'Judge / Magistrate',                s:'23-1023',c:'22.01'},
+  {t:'Paralegal / Legal Assistant',       s:'23-2011',c:'22.03'},
+  {t:'Legal Secretary',                   s:'43-6012',c:'22.03'},
+  {t:'Court Reporter',                    s:'23-2091',c:'22.03'},
+  {t:'Compliance & Regulatory Specialist',s:'13-1041',c:'22.00'},
+  {t:'Contract Manager',                  s:'13-1041',c:'52.02'},
+  {t:'Mediator / Arbitrator',             s:'23-1022',c:'22.00'},
+  // ── NATURAL & SOCIAL SCIENCES ───────────────────────────────────
+  {g:'Sciences & Research'},
+  {t:'Biologist',                         s:'19-1029',c:'26.01'},
+  {t:'Biochemist',                        s:'19-1021',c:'26.02'},
+  {t:'Microbiologist',                    s:'19-1022',c:'26.05'},
+  {t:'Zoologist / Wildlife Biologist',    s:'19-1023',c:'26.08'},
+  {t:'Ecologist',                         s:'19-1020',c:'26.01'},
+  {t:'Botanist',                          s:'19-1013',c:'26.01'},
+  {t:'Neuroscientist',                    s:'19-1029',c:'26.15'},
+  {t:'Geneticist',                        s:'19-1029',c:'26.08'},
+  {t:'Epidemiologist',                    s:'19-1041',c:'51.22'},
+  {t:'Biostatistician',                   s:'15-2041',c:'27.05'},
+  {t:'Chemist',                           s:'19-2031',c:'40.05'},
+  {t:'Materials Scientist',               s:'19-2032',c:'40.10'},
+  {t:'Physicist',                         s:'19-2012',c:'40.08'},
+  {t:'Astronomer / Astrophysicist',       s:'19-2011',c:'40.02'},
+  {t:'Atmospheric Scientist / Meteorologist',s:'19-2021',c:'40.04'},
+  {t:'Geologist / Geoscientist',          s:'19-2042',c:'40.06'},
+  {t:'Hydrologist',                       s:'19-2043',c:'40.06'},
+  {t:'Environmental Scientist',           s:'19-2041',c:'03.01'},
+  {t:'Sociologist',                       s:'19-3041',c:'45.11'},
+  {t:'Anthropologist',                    s:'19-3091',c:'45.02'},
+  {t:'Political Scientist',               s:'19-3021',c:'45.10'},
+  {t:'Historian',                         s:'19-3093',c:'54.01'},
+  {t:'Archaeologist',                     s:'19-3091',c:'45.03'},
+  {t:'Forensic Scientist',                s:'19-4092',c:'43.04'},
+  {t:'Statistician',                      s:'15-2041',c:'27.05'},
+  {t:'Mathematician',                     s:'15-2021',c:'27.01'},
+  {t:'Actuary',                           s:'15-2011',c:'27.05'},
+  // ── ARTS, MEDIA & COMMUNICATIONS ────────────────────────────────
+  {g:'Arts, Media & Communications'},
+  {t:'Journalist / Reporter',             s:'27-3022',c:'09.04'},
+  {t:'News Anchor / Broadcast Journalist',s:'27-3011',c:'09.04'},
+  {t:'Technical Writer',                  s:'27-3042',c:'09.07'},
+  {t:'Content Writer / Copywriter',       s:'27-3043',c:'09.07'},
+  {t:'Editor',                            s:'27-3041',c:'09.07'},
+  {t:'Author / Writer',                   s:'27-3043',c:'23.01'},
+  {t:'Social Media Manager',              s:'27-3043',c:'09.09'},
+  {t:'Digital Marketing Specialist',      s:'13-1161',c:'52.14'},
+  {t:'SEO Specialist',                    s:'15-1255',c:'52.14'},
+  {t:'Photographer',                      s:'27-4021',c:'50.06'},
+  {t:'Videographer / Video Producer',     s:'27-4031',c:'50.06'},
+  {t:'Film Director',                     s:'27-2012',c:'50.06'},
+  {t:'Screenwriter',                      s:'27-3043',c:'23.13'},
+  {t:'Actor',                             s:'27-2011',c:'50.05'},
+  {t:'Musician / Singer',                 s:'27-2041',c:'50.09'},
+  {t:'Music Producer',                    s:'27-2041',c:'50.09'},
+  {t:'Sound Engineer',                    s:'27-4014',c:'10.01'},
+  {t:'Broadcast Technician',              s:'27-4012',c:'10.03'},
+  {t:'Translator / Interpreter',          s:'27-3091',c:'16.01'},
+  {t:'Game Designer',                     s:'27-1024',c:'11.08'},
+  {t:'3D Artist / Modeler',               s:'27-1014',c:'50.06'},
+  {t:'Illustrator',                       s:'27-1013',c:'50.04'},
+  {t:'Event Planner',                     s:'13-1121',c:'52.09'},
+  {t:'Public Affairs Specialist',         s:'27-3031',c:'09.09'},
+  // ── CRIMINAL JUSTICE & PUBLIC SAFETY ────────────────────────────
+  {g:'Public Safety & Criminal Justice'},
+  {t:'Police Officer / Law Enforcement',  s:'33-3051',c:'43.01'},
+  {t:'Correctional Officer',              s:'33-3012',c:'43.04'},
+  {t:'Probation Officer',                 s:'21-1092',c:'43.01'},
+  {t:'FBI / Federal Agent',               s:'33-3021',c:'43.01'},
+  {t:'Firefighter',                       s:'33-2011',c:'43.02'},
+  {t:'Fire Inspector',                    s:'33-2021',c:'43.02'},
+  {t:'Emergency Management Director',     s:'11-9161',c:'43.02'},
+  {t:'Security Manager',                  s:'11-9199',c:'43.01'},
+  {t:'Private Investigator',              s:'33-9021',c:'43.01'},
+  {t:'Forensic Accountant',               s:'13-2011',c:'52.03'},
+  {t:'Crime Scene Investigator',          s:'33-3021',c:'43.04'},
+  {t:'Homeland Security Specialist',      s:'33-1099',c:'43.01'},
+  {t:'Intelligence Analyst',              s:'33-3021',c:'45.10'},
+  {t:'Customs & Border Protection Officer',s:'33-1099',c:'43.01'},
+  // ── CONSTRUCTION & TRADES ───────────────────────────────────────
+  {g:'Construction & Skilled Trades'},
+  {t:'Electrician',                       s:'47-2111',c:'46.03'},
+  {t:'Plumber',                           s:'47-2152',c:'46.04'},
+  {t:'HVAC Technician',                   s:'49-9021',c:'47.01'},
+  {t:'Carpenter',                         s:'47-2031',c:'46.02'},
+  {t:'Welder',                            s:'51-4121',c:'48.05'},
+  {t:'Construction Manager',              s:'11-9021',c:'15.10'},
+  {t:'Construction Estimator',            s:'13-1051',c:'15.10'},
+  {t:'Heavy Equipment Operator',          s:'47-2073',c:'49.03'},
+  {t:'Masonry / Bricklayer',              s:'47-2021',c:'46.01'},
+  {t:'Roofer',                            s:'47-2181',c:'46.04'},
+  {t:'Elevator Installer / Repairer',     s:'47-4021',c:'47.01'},
+  {t:'Building Inspector',                s:'47-4011',c:'04.02'},
+  {t:'Solar Panel Installer',             s:'47-2231',c:'46.03'},
+  {t:'Pipefitter',                        s:'47-2152',c:'46.04'},
+  {t:'Sheet Metal Worker',                s:'47-2211',c:'48.05'},
+  // ── AGRICULTURE & ENVIRONMENT ────────────────────────────────────
+  {g:'Agriculture & Environment'},
+  {t:'Agricultural Scientist',            s:'19-1011',c:'01.03'},
+  {t:'Agricultural Manager / Farm Manager',s:'11-9013',c:'01.01'},
+  {t:'Soil Scientist',                    s:'19-1013',c:'01.12'},
+  {t:'Forester',                          s:'19-1032',c:'03.05'},
+  {t:'Conservation Scientist',            s:'19-1031',c:'03.01'},
+  {t:'Wildlife Manager',                  s:'19-1023',c:'03.06'},
+  {t:'Park Ranger',                       s:'19-1031',c:'03.06'},
+  {t:'Landscape / Groundskeeper',         s:'37-1012',c:'01.06'},
+  {t:'Environmental Health & Safety Specialist',s:'29-9011',c:'51.22'},
+  {t:'Sustainability Manager',            s:'11-9199',c:'03.01'},
+  // ── TRANSPORTATION & LOGISTICS ───────────────────────────────────
+  {g:'Transportation & Logistics'},
+  {t:'Commercial Airline Pilot',          s:'53-2011',c:'49.01'},
+  {t:'Air Traffic Controller',            s:'53-2022',c:'49.01'},
+  {t:'Ship Captain / Officer',            s:'53-5021',c:'49.02'},
+  {t:'Locomotive Engineer',               s:'53-4011',c:'49.04'},
+  {t:'Truck Driver (CDL)',                s:'53-3032',c:'49.02'},
+  {t:'Logistics Manager',                 s:'11-3071',c:'52.02'},
+  {t:'Supply Chain Analyst',              s:'13-1081',c:'52.02'},
+  {t:'Transportation Planner',            s:'19-3099',c:'45.07'},
+  {t:'Warehouse Manager',                 s:'11-3071',c:'52.02'},
+  {t:'Import / Export Specialist',        s:'13-1041',c:'52.11'},
+  // ── HOSPITALITY, FOOD & TRAVEL ───────────────────────────────────
+  {g:'Hospitality, Food & Travel'},
+  {t:'Chef / Executive Chef',             s:'35-1011',c:'12.05'},
+  {t:'Culinary Arts / Line Cook',         s:'35-2014',c:'12.05'},
+  {t:'Pastry Chef / Baker',               s:'51-3011',c:'12.05'},
+  {t:'Restaurant Manager',                s:'11-9051',c:'52.09'},
+  {t:'Hotel Manager',                     s:'11-9081',c:'52.09'},
+  {t:'Travel Agent',                      s:'41-3041',c:'52.09'},
+  {t:'Tour Guide',                        s:'39-7011',c:'52.09'},
+  {t:'Event Manager',                     s:'13-1121',c:'52.09'},
+  {t:'Sommelier',                         s:'35-1011',c:'12.05'},
+  {t:'Flight Attendant',                  s:'53-2031',c:'49.01'},
+  // ── HUMAN SERVICES & COMMUNITY ──────────────────────────────────
+  {g:'Human Services & Community'},
+  {t:'Nonprofit Manager / Director',      s:'11-9151',c:'44.02'},
+  {t:'Community Organizer',               s:'11-9151',c:'44.02'},
+  {t:'Program Coordinator (Nonprofit)',   s:'11-9151',c:'44.02'},
+  {t:'Grant Writer',                      s:'27-3043',c:'44.00'},
+  {t:'Case Manager',                      s:'21-1093',c:'44.07'},
+  {t:'Youth Services Worker',             s:'21-1099',c:'44.00'},
+  {t:'Child Welfare Specialist',          s:'21-1021',c:'44.07'},
+  {t:'Gerontologist / Elder Care Specialist',s:'21-1099',c:'51.26'},
+  {t:'Interpreter / Sign Language Interpreter',s:'27-3091',c:'16.16'},
+  // ── MILITARY & GOVERNMENT ────────────────────────────────────────
+  {g:'Military & Government'},
+  {t:'Military Officer',                  s:'55-1013',c:'29.02'},
+  {t:'Military Enlisted',                 s:'55-3019',c:'29.02'},
+  {t:'Government Program Analyst',        s:'13-1199',c:'44.04'},
+  {t:'Policy Analyst',                    s:'19-3021',c:'44.05'},
+  {t:'Foreign Service Officer / Diplomat',s:'27-3031',c:'45.09'},
+  {t:'Postal Worker',                     s:'43-5051',c:'52.02'},
+  {t:'Census / Statistics Enumerator',    s:'43-3031',c:'45.00'},
+  {t:'Urban Planner',                     s:'19-3051',c:'04.03'},
+  // ── MATHEMATICS & STATISTICS ────────────────────────────────────
+  {g:'Mathematics & Statistics'},
+  {t:'Statistician',                      s:'15-2041',c:'27.05'},
+  {t:'Applied Mathematician',             s:'15-2021',c:'27.01'},
+  {t:'Quantitative Analyst (Quant)',      s:'15-2031',c:'27.05'},
+  {t:'Operations Research Analyst',       s:'15-2031',c:'52.02'},
+  {t:'Cryptographer / Cryptanalyst',      s:'15-1299',c:'27.03'},
+];
+
+// ── COMBOBOX LOGIC ───────────────────────────────────────────────────────────
+var selectedCareer = '';
+var comboOpen = false;
+var focusedIdx = -1;
+var filteredOptions = [];
+
+function buildCareerList(query) {
+  var q = (query || '').toLowerCase().trim();
+  var list = document.getElementById('careerDropdownList');
+  list.innerHTML = '';
+  filteredOptions = [];
+  var currentGroup = '';
+  var count = 0;
+
+  CAREER_DB.forEach(function(item) {
+    if (item.g) { currentGroup = item.g; return; }
+    if (!q || item.t.toLowerCase().includes(q) || (item.s && item.s.includes(q))) {
+      filteredOptions.push({title: item.t, soc: item.s, group: currentGroup});
+    }
+  });
+
+  if (filteredOptions.length === 0) {
+    list.innerHTML = '<div class="career-no-results">No careers found for "' + query + '"<br><span style="font-size:.75rem;color:var(--gray-300)">Try a different keyword</span></div>';
+    return;
+  }
+
+  // Show count when searching
+  if (q) {
+    var countEl = document.createElement('div');
+    countEl.className = 'career-count-label';
+    countEl.textContent = filteredOptions.length + ' career' + (filteredOptions.length !== 1 ? 's' : '') + ' found';
+    list.appendChild(countEl);
+  }
+
+  var lastGroup = '';
+  filteredOptions.forEach(function(opt, idx) {
+    // Group header
+    if (opt.group !== lastGroup && !q) {
+      var gh = document.createElement('div');
+      gh.className = 'career-group-label';
+      gh.textContent = opt.group;
+      list.appendChild(gh);
+      lastGroup = opt.group;
+    }
+    var el = document.createElement('div');
+    el.className = 'career-option' + (opt.title === selectedCareer ? ' selected' : '');
+    el.dataset.idx = idx;
+    el.innerHTML = '<span>' + opt.title + '</span><span class="career-option-soc">' + opt.soc + '</span>';
+    el.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      selectCareer(opt.title, opt.soc);
+    });
+    list.appendChild(el);
+    count++;
+  });
+}
+
+function openCareerDropdown() {
+  var list = document.getElementById('careerDropdownList');
+  var input = document.getElementById('careerSearchInput');
+  list.classList.add('open');
+  comboOpen = true;
+  buildCareerList(input.value);
+  focusedIdx = -1;
+}
+
+function filterCareers() {
+  var input = document.getElementById('careerSearchInput');
+  var clearBtn = document.getElementById('careerClear');
+  clearBtn.classList.toggle('show', input.value.length > 0);
+  if (!comboOpen) openCareerDropdown();
+  // If user types after selection, clear the selection
+  if (selectedCareer && input.value !== selectedCareer) {
+    selectedCareer = '';
+    document.getElementById('f_career').value = '';
+    document.getElementById('careerCombo').querySelector('.career-combo-input-wrap').classList.remove('has-value');
+  }
+  buildCareerList(input.value);
+  focusedIdx = -1;
+}
+
+function selectCareer(title, soc) {
+  selectedCareer = title;
+  document.getElementById('f_career').value = title;
+  document.getElementById('careerSearchInput').value = title;
+  document.getElementById('careerClear').classList.add('show');
+  document.getElementById('careerCombo').querySelector('.career-combo-input-wrap').classList.add('has-value');
+  closeCareerDropdown();
+}
+
+function clearCareer() {
+  selectedCareer = '';
+  document.getElementById('f_career').value = '';
+  document.getElementById('careerSearchInput').value = '';
+  document.getElementById('careerClear').classList.remove('show');
+  document.getElementById('careerCombo').querySelector('.career-combo-input-wrap').classList.remove('has-value');
+  document.getElementById('careerSearchInput').focus();
+  openCareerDropdown();
+}
+
+function closeCareerDropdown() {
+  document.getElementById('careerDropdownList').classList.remove('open');
+  comboOpen = false;
+  focusedIdx = -1;
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+  if (!comboOpen) return;
+  var opts = document.querySelectorAll('.career-option');
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    focusedIdx = Math.min(focusedIdx + 1, opts.length - 1);
+    opts.forEach(function(o,i){ o.classList.toggle('focused', i === focusedIdx); });
+    if (opts[focusedIdx]) opts[focusedIdx].scrollIntoView({block:'nearest'});
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    focusedIdx = Math.max(focusedIdx - 1, 0);
+    opts.forEach(function(o,i){ o.classList.toggle('focused', i === focusedIdx); });
+    if (opts[focusedIdx]) opts[focusedIdx].scrollIntoView({block:'nearest'});
+  } else if (e.key === 'Enter' && focusedIdx >= 0 && filteredOptions[focusedIdx]) {
+    e.preventDefault();
+    var opt = filteredOptions[focusedIdx];
+    selectCareer(opt.title, opt.soc);
+  } else if (e.key === 'Escape') {
+    closeCareerDropdown();
+  }
+});
+
+// Close on outside click
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#careerCombo')) closeCareerDropdown();
+});
+
+
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+</script>
+</body>
+</html>
